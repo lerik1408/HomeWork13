@@ -7,11 +7,10 @@
         <form-component></form-component>
     </div>
 </template>
-
 <script>
 import HeaderComponent from '../components/siginIn/header.vue';
-import QuestionComponent from '../components/siginIn/queNoHave.vue';
-import FormComponent from '../components/siginIn/form.vue'
+import QuestionComponent from '../components/entMailForReset/backSiginIn.vue';
+import FormComponent from '../components/entMailForReset/form.vue'
 
 export default {
   name: 'app',
@@ -22,8 +21,7 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
+<style lang="sass">
 @import '../settings/base.sass'
 @import '../settings/reset.sass'
 @import '../settings/respond.sass'
@@ -40,3 +38,5 @@ body
     flex-direction: column
     align-items: center
 </style>
+
+

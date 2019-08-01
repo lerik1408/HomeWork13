@@ -10,22 +10,15 @@ export default {
     
 }
 </script>
-<style lang="sass">
+<style lang="sass" scoped>
 @import '../../settings/respond.sass'
 @import '../../settings/_variables.sass'
-.header
+.header__logo
     display: flex
-    justify-content: space-between
-    margin-top: 28px
+    margin-left: 9.5%
     @include respind_smartphone
-        flex-direction: column
-        align-items: center
-    .header__logo
-        display: flex
-        margin-left: 9.5%
-        @include respind_smartphone
-            margin-left: 0
-            margin-bottom: 20px
+        margin-left: 0
+        margin-bottom: 20px
 </style>
 
 
