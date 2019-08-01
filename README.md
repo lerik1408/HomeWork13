@@ -1,5 +1,13 @@
 # home-work13
-
+## done
+six simple pages
+## not done
+other pages
+deploy
+## Questions
+1.Нужно ли использовать HTML шаблонизаторы в Vue?
+2.Нормальная ли реализация в /components/siginUp/createAcc/form НЕ самой логики проверки сложности пароля, а именно то что все проверки и добавления классов сделаны на чистом js(Можно ли делать так или же нужно "переводить" на Vue)?
+3.
 ## Project setup
 ```
 yarn install
