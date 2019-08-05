@@ -7,6 +7,8 @@ import mailCheckForCreate from './views/mailCheckForCreate';
 import createAcc from './views/createAcc';
 import messenger from './views/messenger';
 import search from './views/search';
+import personInfo from './views/personInfo';
+import accInfo from './views/accInfo';
 
 const routes = [
   { path: '/sign-in', component: siginIn },
@@ -17,6 +19,8 @@ const routes = [
   { path: '/create-acc', component: createAcc},
   { path: '/messenger', component: messenger},
   { path: '/search', component: search},
+  { path: '/person-info', component: personInfo},
+  { path: '/account-info', component: accInfo}
 ]
 
 const router = new VueRouter({

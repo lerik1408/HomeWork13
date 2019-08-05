@@ -3,7 +3,7 @@
         <aside-component v-bind:active="active"></aside-component>
         <header-component v-bind:breadcrumbs="breadcrumbs"></header-component>
         <main class="main">
-            <content-component v-bind:peoples="peoples"></content-component>
+            <content-component v-bind:active="active"></content-component>
         </main>
     </div>
 </template>
@@ -11,26 +11,20 @@
 <script>
 import asideComponent from '../components/main/aside';
 import headerComponent from '../components/main/header';
-import contentComponent from '../components/main/search/content'
+import contentComponent from '../components/main/info/accInfo/content'
 
 export default{
-    name: 'search',
+    name: 'account-info',
     data: function () {
         return{
             active: {
-                search: true,
+                info: true,
+                account: true
             },
             breadcrumbs: [
                 {id: 1,text: 'Home'},
-                {id: 2,text: 'Search'},
-                {id: 3,text: 'Result'}
+                {id: 2,text: 'My profile'},
             ],
-            inp: 'lll',
-            peoples: [
-                {id: 1,img:'../assets/img/mainContent/search/people1', name:'name 1',rating: 1,country: 'UA',skills: 'Node js',price: 500},
-                {id: 2,img:'../assets/img/mainContent/search/people2', name:'name 2',rating: 2,country: 'USA',skills: 'JS',price: 1000},
-                {id: 3,img:'../assets/img/mainContent/search/people3', name:'name 3',rating: 3,country: 'Poland',skills: 'C++',price: 5000}
-            ]
         }
     },
     components: {
@@ -46,10 +40,12 @@ export default{
 @import '../settings/reset.sass'
 @import '../settings/respond.sass'
 @import '../settings/variables.sass'
-main
+.main
     display: flex
-    margin-left: 80px
+    justify-content: center
+    align-content: flex-end
     background-color: $grayMain
+    margin-left: 80px
     @include respond_tablet
         margin-left: 0
 </style>

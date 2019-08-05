@@ -1,6 +1,6 @@
 <template>
         <section class="main__wrap">
-            <component-form v-bind:inp="inp"></component-form>
+            <component-form></component-form>
             <component-people v-bind:peoples="peoples"></component-people>
         </section>
 </template>
@@ -10,7 +10,6 @@ import componentForm from './form/content';
 import componentPeople from './people/content';
 export default{
     props: {
-        inp: String,
         peoples: Array,
     },
     components:{

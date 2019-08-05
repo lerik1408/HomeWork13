@@ -38,9 +38,7 @@
 
 <script>
 export default{
-    props: {
-        inp: String,
-    }
+
 }
 </script>
 

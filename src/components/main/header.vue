@@ -37,6 +37,7 @@ export default{
   height: 60px
   margin-left: 80px
   padding: 0 40px
+  background-color: #fff
   @include respond_tablet
     margin: 0
     margin-left: 0
