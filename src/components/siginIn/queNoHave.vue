@@ -1,7 +1,7 @@
 <template>
     <div class="header__question">
         <p class="header__text">Do not have an account?</p>
-        <a href="sigin-up" class="header__link">Sigin Up</a>
+        <a href="sign-up" class="header__link">Sigin Up</a>
     </div>
 </template>
 <script>

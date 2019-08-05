@@ -17,6 +17,13 @@ export default {
 }
 </script>
 <style lang="sass">
-
+@import '../settings/base.sass'
+@import '../settings/reset.sass'
+@import '../settings/respond.sass'
+@import '../settings/variables.sass'
+body
+  background-color: $grayMain
+  font-family: 'Roboto', sans-serif
+  font-size: 14px
 </style>
 

@@ -24,19 +24,19 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import '../settings/base.sass'
-@import '../settings/reset.sass'
-@import '../settings/respond.sass'
-@import '../settings/variables.sass'
-body
-  background-color: $grayMain
-  font-family: 'Roboto', sans-serif
-  font-size: 14px
-.header
-  display: flex
-  justify-content: space-between
-  margin-top: 28px
-  @include respind_smartphone
-    flex-direction: column
-    align-items: center
+// @import '../settings/base.sass'
+// @import '../settings/reset.sass'
+// @import '../settings/respond.sass'
+// @import '../settings/variables.sass'
+// body
+//   background-color: $grayMain
+//   font-family: 'Roboto', sans-serif
+//   font-size: 14px
+// .header
+//   display: flex
+//   justify-content: space-between
+//   margin-top: 28px
+//   @include respind_smartphone
+//     flex-direction: column
+//     align-items: center
 </style>
