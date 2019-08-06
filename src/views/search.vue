@@ -27,9 +27,9 @@ export default{
             ],
             inp: 'lll',
             peoples: [
-                {id: 1,img:'../assets/img/mainContent/search/people1', name:'name 1',rating: 1,country: 'UA',skills: 'Node js',price: 500},
-                {id: 2,img:'../assets/img/mainContent/search/people2', name:'name 2',rating: 2,country: 'USA',skills: 'JS',price: 1000},
-                {id: 3,img:'../assets/img/mainContent/search/people3', name:'name 3',rating: 3,country: 'Poland',skills: 'C++',price: 5000}
+                {id: 1,img:'../search/people1.png', name:'name 1',rating: 1,country: 'UA',skills: 'Node js',price: 500},
+                {id: 2,img:'../search/people2.png', name:'name 2',rating: 2,country: 'USA',skills: 'JS',price: 1000},
+                {id: 3,img:'../search/people3.png', name:'name 3',rating: 3,country: 'Poland',skills: 'C++',price: 5000}
             ]
         }
     },
