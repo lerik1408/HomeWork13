@@ -19,7 +19,18 @@ const routes = [
   { path: '/create-acc', component: createAcc},
   { path: '/messenger', component: messenger},
   { path: '/search', component: search},
-  { path: '/person-info', component: personInfo},
+  { path: '/person-info',
+    component: personInfo,
+    beforeEnter: function(to, from, next){
+      if(localStorage.getItem('user')){
+        next()
+      } else {
+        next({
+          path: '/sign-in'
+        })
+      }
+    }
+  },
   { path: '/account-info', component: accInfo}
 ]
 

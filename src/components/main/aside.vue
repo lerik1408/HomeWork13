@@ -1,5 +1,5 @@
 <template>
-<aside class="aside">
+<aside class="aside" :class="{'aside--active': s}">
     <figure class="aside__logo">
         <img src="../../assets/img/mainContent/logo.png" alt="" srcset="">
     </figure>
@@ -52,6 +52,11 @@ export default{
   name: 'aside1',
   props: {
     active: Object
+  },
+  computed:{
+    s () {
+      return this.$store.state.flag
+    }
   }
 }
 </script>

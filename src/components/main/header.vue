@@ -1,9 +1,9 @@
 <template>
 <header class="header">
-    <div class="burger">
-        <span class="burger__line"></span>
+    <div class="burger" @click="show">
+        <span class="burger__line" :class="{'burger__line--active': s}"></span>
      </div>
-    <section class="breadcrumbs">
+    <section @click="update" class="breadcrumbs">
         <p class="breadcrumbs__item" v-for="item in breadcrumbs" v-bind:key="item.id">{{item.text}}</p>
     </section>
     <section class="header__user user">
@@ -23,7 +23,26 @@
 export default{
     props: {
         breadcrumbs: Array
-    }
+    },
+    computed: {
+      count (){
+        return this.$store.state.count
+      },
+      s () {
+        return this.$store.state.flag
+      }
+    },
+    methods: {
+      update(){
+        this.$store.commit('increment', {
+          number: 10
+        });
+      },
+      show(){
+        this.$store.commit('show');
+        console.log(this.$store.state.flag);
+      },
+    },
 }
 </script>
 
@@ -42,6 +61,8 @@ export default{
     margin: 0
     margin-left: 0
     padding: 0
+  @include respind_smartphone
+    flex-direction: row
 .burger
   display: none
   @include respond_tablet

@@ -13,7 +13,33 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data: function (){
+        return{
+            user:{
+                email: '',
+                password: '',
+            }
+        }
+    },
+    methods: {
+        login(){
+            this.saveUser({
+                token: 'kkkk',
+                user: {
+                    name: 'Vasya',
+                    surname: 'Vasurname',
+                    gender: 'Mr',
+                    photo: '',
+                },
+            });
+        },
+        saveUser(user){
+            localStorage.setItem('user',JSON.stringify(user));
+            this.$router.psuh('/person-info')
+        }
+    }
+};
 </script>
 
 <style lang="sass" scoped>
