@@ -9,8 +9,36 @@
     <div class="main__wrap">
       <form @submit.prevent="login" class="form">
         <h3 class="form__headline">Sigin in</h3>
-        <input v-model="user.email" type="text" class="form__input" placeholder="E-mail" />
-        <input v-model="user.passord" type="text" class="form__input password" placeholder="Password" />
+        <input  v-model="user.email"
+                v-validate="'required|email'"
+                name="email"
+                type="text"
+                class="form__input"
+                placeholder="E-mail"
+                ref="emailInput"
+        />
+        <span 
+          ref="message"
+          class="message"
+          :class="{'message--novalid': valide.show}"
+          >
+          {{ errors.first('email') }}
+        </span>
+        <input  v-model="user.passord"
+                v-validate="'required|min:6'"
+                type="password"
+                name="password"
+                class="form__input password"
+                placeholder="Password"
+                ref="passwordInput"
+        />
+        <span
+          ref="message"
+          class="message"
+          :class="{'message--novalid': valide.show}"
+          >
+          {{ errors.first('password') }}
+        </span>
         <a href="#" class="form__link"></a>
         <button type="submit" class="form__button">Sigin in</button>
       </form>
@@ -22,8 +50,11 @@
 <script>
 import HeaderComponent from '../components/siginIn/header.vue';
 import QuestionComponent from '../components/siginIn/queNoHave.vue';
-import FormComponent from '../components/siginIn/form.vue'
+// import FormComponent from '../components/siginIn/form.vue'
+import api from '../shared/services/api.axios';
 
+          // class="message"
+          // :class="{'message--novalid': valide.show}"
 export default {
   name: 'app',
   components: {
@@ -34,26 +65,41 @@ export default {
       data: function (){
         return{
             user:{
-                email: '',
-                password: '',
+              email: '',
+              password: '',
+            },
+            valide:{
+              show: false,
+              email: true,
+              password: true,
             }
         }
     },
     methods: {
         login(){
-            this.saveUser({
-                token: 'kkkk',
-                user: {
-                    name: 'Vasya',
-                    surname: 'Vasurname',
-                    gender: 'Mr',
-                    photo: '',
+          this.$validator.validate().then(valid => {
+            if (valid) {
+              this.saveUser({
+              token: 'kkkk',
+              user: {
+                name: 'Vasya',
+                surname: 'Vasurname',
+                gender: 'Mr',
+                photo: '',
                 },
-            });
+              });
+            }else{
+              this.$refs.emailInput.focus()
+              this.valide.show = true
+            }
+          });
         },
         saveUser(user){
             localStorage.setItem('user',JSON.stringify(user));
-            this.$router.push('/person-info')
+            // api.init('https://swapi.co/api');
+            // api.init('http://localhost:3000')
+            api.setHeader();
+            this.$router.push('/person-info');
         }
     }
 }
@@ -77,6 +123,12 @@ export default {
 //     align-items: center
 @import '../settings/respond.sass'
 @import '../settings/_variables.sass'
+.message
+  display: none
+  margin-bottom: 10px 
+.message--novalid
+  color: red
+  display: block
 .main
   width: 100vw
   display: flex
@@ -121,7 +173,7 @@ export default {
   background-color: #fff
   border-left: 2px solid $blue
 .password
-  margin-bottom: 0
+  margin-bottom: 24px
 .form__link
   align-self: flex-end
   font-size: 12px
@@ -144,10 +196,4 @@ export default {
   margin-top: 14px
   @include respond_tablet
     align-self: center
-.form__user-name
-  display: flex
-  .form__input
-    width: 47.5%
-    &:first-child
-      margin-right: 5%
 </style>

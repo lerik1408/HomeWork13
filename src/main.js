@@ -2,8 +2,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import router from './router';
-import store from './store'
-Vue.use(VueRouter)
+import store from './store';
+import VeeValidate from 'vee-validate';
+
+Vue.use(VueRouter);
+Vue.use(VeeValidate);
 Vue.config.productionTip = false
 
 

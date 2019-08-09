@@ -27,7 +27,7 @@
                 </label>
             </section>
             <section class="chat__mails dialogue">
-                <div class="dialogue__message" v-for="message in messages" v-bind:class="[message.img ? 'dialogue__message--another': 'dialogue__message--user']">
+                <div class="dialogue__message" v-for="(message, i) in messages" :key="i" v-bind:class="[message.img ? 'dialogue__message--another': 'dialogue__message--user']">
                     <img v-if="message.img" v-bind:src="message.img" alt="Face">
                     <div class="message__wrap">
                         <p class="message__wrap-text">{{message.text}}</p>

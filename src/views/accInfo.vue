@@ -25,13 +25,14 @@ export default{
                 {id: 1,text: 'Home'},
                 {id: 2,text: 'My profile'},
             ],
+            kek: [],
         }
     },
     components: {
         asideComponent,
         headerComponent,
         contentComponent,
-    }
+    },
 }
 </script>
 

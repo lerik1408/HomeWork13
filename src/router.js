@@ -17,8 +17,18 @@ const routes = [
   { path: '/sign-up',component: siginUp},
   { path: '/mail-check-for-create', component: mailCheckForCreate},
   { path: '/create-acc', component: createAcc},
-  { path: '/messenger', component: messenger},
-  { path: '/search', component: search},
+  { path: '/search', component: search,},
+  { path: '/messenger', component: messenger,
+    beforeEnter: function(to, from, next){
+      if(localStorage.getItem('user')){
+        next()
+      } else {
+        next({
+          path: '/sign-in'
+        })
+      }
+    }
+  },
   { path: '/person-info',
     component: personInfo,
     beforeEnter: function(to, from, next){
@@ -31,7 +41,17 @@ const routes = [
       }
     }
   },
-  { path: '/account-info', component: accInfo}
+  { path: '/account-info', component: accInfo,
+    beforeEnter: function(to, from, next){
+      if(localStorage.getItem('user')){
+        next()
+      } else {
+        next({
+          path: '/sign-in'
+        })
+      }
+    }
+  }
 ]
 
 const router = new VueRouter({
