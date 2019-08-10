@@ -17,7 +17,7 @@
             <people-component
               v-for="people in peoples"
               v-bind:people="people"
-              v-bind:key="people.id"
+              v-bind:key="people._id"
             ></people-component>
           </div>
           <!-- <div class="pagination"></div> -->
@@ -32,20 +32,23 @@ import asideComponent from "../../components/aside";
 import headerComponent from "../../components/header";
 import formComponent from "../components/form";
 import peopleComponent from "../components/people";
+import api from '../../shared/services/api.axios';
+import axios from 'axios'
 
 export default {
-  name: "personal",
+  // name: "personal",
   data: function() {
     return {
+      peoples: undefined,
       active: {
         search: true,
       },
       breadcrumbs: [{ id: 1, text: "Home" }, { id: 2, text: "My profile" }],
-        peoples: [
-                {id: 1,img:'../search/people1.png', name:'name 1',rating: 1,country: 'UA',skills: 'Node js',price: 500},
-                {id: 2,img:'../search/people2.png', name:'name 2',rating: 2,country: 'USA',skills: 'JS',price: 1000},
-                {id: 3,img:'../search/people3.png', name:'name 3',rating: 3,country: 'Poland',skills: 'C++',price: 5000}
-            ]
+        // peoples: [
+        //         {id: 1,img:'../search/people1.png', name:'name 1',rating: 1,country: 'UA',skills: 'Node js',price: 500},
+        //         {id: 2,img:'../search/people2.png', name:'name 2',rating: 2,country: 'USA',skills: 'JS',price: 1000},
+        //         {id: 3,img:'../search/people3.png', name:'name 3',rating: 3,country: 'Poland',skills: 'C++',price: 5000}
+        //     ]
     };
   },
   components: {
@@ -53,6 +56,13 @@ export default {
     headerComponent,
     formComponent,
     peopleComponent,
+  },
+  mounted: function(){
+      axios.get('http://localhost:3000/auth/search').then((res) => {
+        // console.log(res.data)
+        this.peoples = res.data.allPeople
+        console.log(this.peoples)
+      })
   }
 };
 </script>

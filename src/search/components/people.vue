@@ -1,6 +1,6 @@
 <template>
     <div class="people__item">
-        <img :src="people.img" class="people__img" alt="face">
+        <img :src="people.photo" class="people__img" alt="face">
         <div class="people__content">
             <div class="people__headline">
                 <p class="people__name">{{people.name}}</p>
@@ -14,12 +14,13 @@
                 </div>
                 <div class="people__stack stack">
                     <p class="stack__stack">Stack: </p>
-                    <p class="stack__skills">{{people.skills}}</p>
+                    <p class="stack__skills">{{people.stack}}</p>
                     <a href='#' class="stack__link">More</a>
                 </div>
                 <div class="people__price price">
                     <p class="price__text">Base Daily Rate:</p>
-                    <p class="price__price">{{people.price}}</p>
+                    <p class="price__price">{{people.dailyRate}}</p>
+                    <p class="price__text">$</p>
                 </div>
             </div>
         </div>
@@ -30,7 +31,7 @@ import componentRating from './rating'
 export default{
     props: {
         inp: String,
-        people: Array,
+        people: Object,
     },
     components: {
         componentRating,
@@ -65,6 +66,9 @@ export default{
             margin-left: 0px
 .people__img
     margin-left: 30px
+    width: 76px
+    height: 76px
+    border-radius: 50%
     @include respind_smartphone
         margin-left: 0
 .people__content

@@ -1,24 +1,21 @@
 <template>
-    <form action="" class="form">
+    <form class="form" method="get">
         <div class="form__wrap">
             <label for="" class="form__label">Location</label>
-            <select class="form__select">
+            <select class="form__select" name="location">
                 <option></option>
                 <option>Пункт 2</option>
             </select>
         </div>
         <div class="form__wrap">
-            <label for="" class="form__label">Category</label>
-            <select class="form__select">
-                <option>Category</option>
-                <option>Category1</option>
-            </select>
+            <label for="" class="form__label">Search</label>
+            <input class="form__input" placeholder="Enter name" name="name">
         </div>
         <div class="form__wrap">
-            <label for="" class="form__label">SubCategory</label>
-            <select class="form__select">
-                <option>SubCategory</option>
-                <option>SubCategory1</option>
+            <label for="" class="form__label">Category</label>
+            <select class="form__select" name="Category">
+                <option selected disabled>Cat1</option>
+                <option>Category1</option>
             </select>
         </div>
         <div class="form__wrap">
@@ -32,7 +29,7 @@
             <label class="form__label">Period</label>
             <input class="form__input" id="data">
         </div>
-        <button class="form__button">Search</button>
+        <button class="form__button" type="submit">Search</button>
     </form>
 </template>
 
