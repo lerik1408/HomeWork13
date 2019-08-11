@@ -2,19 +2,20 @@
     <form class="form" method="get">
         <div class="form__wrap">
             <label for="" class="form__label">Location</label>
-            <select class="form__select" name="location">
+            <select class="form__select">
                 <option></option>
                 <option>Пункт 2</option>
             </select>
         </div>
+        <p>{{name}}</p>
         <div class="form__wrap">
             <label for="" class="form__label">Search</label>
-            <input class="form__input" placeholder="Enter name" name="name">
+            <input v-model='name' @input="searchName" class="form__input" placeholder="Enter name" name="name">
         </div>
         <div class="form__wrap">
             <label for="" class="form__label">Category</label>
-            <select class="form__select" name="Category">
-                <option selected disabled>Cat1</option>
+            <select class="form__select">
+                <option >Cat1</option>
                 <option>Category1</option>
             </select>
         </div>
@@ -34,8 +35,19 @@
 </template>
 
 <script>
+import api from '../../shared/services/api.axios';
 export default{
-
+    data(){
+        return{
+            name: ""
+        }
+    },
+    methods:{
+        searchName(){
+            console.log('dw')
+            api.get
+        }
+    }
 }
 </script>
 

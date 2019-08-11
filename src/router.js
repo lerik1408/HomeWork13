@@ -21,6 +21,7 @@ const routes = [
   { path: '/sign-up-2', component: siginUp2},
   { path: '/sign-up-3', component: siginUp3},
   { path: '/search', component: search},
+  { path: '/search/:id', component: search},
   { path: '/messenger',
     component: messenger,
     beforeEnter: function(to, from, next){

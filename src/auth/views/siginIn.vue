@@ -23,7 +23,7 @@
           >
           {{ errors.first('email') }}
         </span>
-        <input  v-model="user.passord"
+        <input  v-model="user.password"
                 v-validate="'required|min:6'"
                 type="password"
                 name="password"
@@ -50,6 +50,7 @@
 import LogoComponent from '../components/logo.vue';
 import QuestionComponent from '../components/queNoHave.vue';
 import api from '../../shared/services/api.axios'
+import axios from 'axios'
 
 export default {
   name: 'app',
@@ -59,10 +60,7 @@ export default {
   },
       data: function (){
         return{
-            user:{
-              email: '',
-              password: '',
-            },
+            user:{email: "", password: ""},
             valide:{
               show: false,
               email: true,
@@ -73,17 +71,36 @@ export default {
     methods: {
         login(){
           this.$validator.validate().then(valid => {
-            if (valid) {
-              this.saveUser({
-              token: 'kkkk',
-              user: {
-                name: 'Vasya',
-                surname: 'Vasurname',
-                gender: 'Mr',
-                photo: '',
-                },
-              });
-            }else{
+            if (valid){
+              let config = {
+                headers: {
+                  'Content-Type': 'application/json',
+                }
+              }
+              // axios.defaults.headers.post['Content-Type'] = 'application/json'
+              
+              api.post('http://localhost:3000/auth/sign-in',JSON.stringify(this.user)).then((res) => {
+                if(res.data.error||res.data.error===null){
+                  console.log('Bug')
+                }else{
+                  console.log(res);
+                }
+              }).catch((err)=>{
+                console.log('Form not submitted')
+              })
+            }
+            // if (valid) {
+            //   this.saveUser({
+            //   token: 'kkkk',
+            //   user: {
+            //     name: 'Vasya',
+            //     surname: 'Vasurname',
+            //     gender: 'Mr',
+            //     photo: '',
+            //     },
+            //   });
+            // }
+            else{
               this.$refs.emailInput.focus()
               this.valide.show = true
             }

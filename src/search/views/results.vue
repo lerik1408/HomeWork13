@@ -33,7 +33,6 @@ import headerComponent from "../../components/header";
 import formComponent from "../components/form";
 import peopleComponent from "../components/people";
 import api from '../../shared/services/api.axios';
-import axios from 'axios'
 
 export default {
   // name: "personal",
@@ -42,8 +41,14 @@ export default {
       peoples: undefined,
       active: {
         search: true,
+        
       },
-      breadcrumbs: [{ id: 1, text: "Home" }, { id: 2, text: "My profile" }],
+      breadcrumbs: [
+        { id: 1, text: 'Home' },
+        { id: 2, text: 'Search' },
+        { id: 3, text: 'Results'},
+      ],
+      
         // peoples: [
         //         {id: 1,img:'../search/people1.png', name:'name 1',rating: 1,country: 'UA',skills: 'Node js',price: 500},
         //         {id: 2,img:'../search/people2.png', name:'name 2',rating: 2,country: 'USA',skills: 'JS',price: 1000},
@@ -58,11 +63,19 @@ export default {
     peopleComponent,
   },
   mounted: function(){
-      axios.get('http://localhost:3000/auth/search').then((res) => {
-        // console.log(res.data)
+    console.log(this.$route.params.id)
+    if(this.$route.params.id){
+      api.get(`http://localhost:3000/auth/search/${this.$route.params.id}`).then((res) => {
         this.peoples = res.data.allPeople
-        console.log(this.peoples)
-      })
+        })
+      } else {
+        api.get('http://localhost:3000/auth/search').then((res) => {
+          this.peoples = res.data.allPeople
+        })
+      }
+        // api.get('http://localhost:3000/auth/search').then((res) => {
+        //   this.peoples = res.data.allPeople
+        // })
   }
 };
 </script>

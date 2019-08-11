@@ -3,7 +3,7 @@
         <img :src="people.photo" class="people__img" alt="face">
         <div class="people__content">
             <div class="people__headline">
-                <p class="people__name">{{people.name}}</p>
+                <p class="people__name">{{people.name+' '+ people.surname}}</p>
                     <component-rating v-bind:rating="people.rating"></component-rating>
                 </div>
                 <div class="people__position">

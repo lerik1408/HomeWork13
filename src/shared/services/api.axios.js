@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+// axios.defaults.headers.post["Content-Type"] = "application/json"
+
 const ApiService = {
   init(baseURL) {
     axios.defaults.baseURL = baseURL;
@@ -20,8 +22,8 @@ const ApiService = {
     return axios.get(resource)
   },
 
-  post(resource, data) {
-    return axios.post(resource, data)
+  post(resource, data, config) {
+    return axios.post(resource, data, config)
   },
 
   put(resource, data) {
