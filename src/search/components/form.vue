@@ -10,18 +10,23 @@
         <p>{{name}}</p>
         <div class="form__wrap">
             <label for="" class="form__label">Search</label>
-            <input v-model='name' @input="searchName" class="form__input" placeholder="Enter name" name="name">
+            <input v-model='name' @input="searchName" class="form__input" placeholder="Enter name" name="name" ref="nameInput">
         </div>
         <div class="form__wrap">
             <label for="" class="form__label">Category</label>
-            <select class="form__select">
-                <option >Cat1</option>
-                <option>Category1</option>
+            <select class="form__select" name="category" @change="searchCategory" formmethod="get">
+                <option value="0">All</option>
+                <option 
+                    v-for="category in categorys"
+                    :key="category._id">
+                    {{category.name}}
+                    </option>
             </select>
         </div>
         <div class="form__wrap">
             <label for="" class="form__label">Service</label>
-            <select class="form__select">
+            <select class="form__select" name="ser">
+                <option value="0">All</option>
                 <option>3 Service</option>
                 <option>Пункт 2</option>
             </select>
@@ -30,7 +35,7 @@
             <label class="form__label">Period</label>
             <input class="form__input" id="data">
         </div>
-        <button class="form__button" type="submit">Search</button>
+        <button @click="submit" class="form__button" type="submit" >Search</button>
     </form>
 </template>
 
@@ -39,14 +44,32 @@ import api from '../../shared/services/api.axios';
 export default{
     data(){
         return{
-            name: ""
+            name: "",
+            categorys: [],
         }
     },
     methods:{
         searchName(){
             console.log('dw')
-            api.get
+        },
+        searchCategory(){
+            console.log(this.$refs.nameInput.value)
+        },
+        submit(){
+            alert('dw')
+            if(this.$refs.nameInput.value){
+                alert('dw')
+            }else{
+                this.$refs.nameInput.setAttribute("disable")
+            }
+            // console.log(this.$refs.nameInput)
         }
+    },
+    mounted () {
+       api.get('http://localhost:3000/auth/category').then((res) => {
+            console.log(res.data.categorys)
+            this.categorys = res.data.categorys
+        }); 
     }
 }
 </script>

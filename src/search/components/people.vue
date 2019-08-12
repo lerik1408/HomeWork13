@@ -14,7 +14,7 @@
                 </div>
                 <div class="people__stack stack">
                     <p class="stack__stack">Stack: </p>
-                    <p class="stack__skills">{{people.stack}}</p>
+                    <p class="stack__skills">{{people.stack[0].name}}</p>
                     <a href='#' class="stack__link">More</a>
                 </div>
                 <div class="people__price price">
