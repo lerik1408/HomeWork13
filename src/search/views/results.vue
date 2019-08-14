@@ -65,17 +65,14 @@ export default {
   mounted: function(){
     console.log(this.$route.params.id)
     if(this.$route.params.id){
-      api.get(`http://localhost:3000/auth/search/${this.$route.params.id}`).then((res) => {
+      api.get(`http://localhost:3000/api/auth/search/${this.$route.params.id}`).then((res) => {
         this.peoples = res.data.allPeople
         })
       } else {
-        api.get('http://localhost:3000/auth/search').then((res) => {
+        api.get('http://localhost:3000/api/auth/search').then((res) => {
           this.peoples = res.data.allPeople
         })
       }
-        // api.get('http://localhost:3000/auth/search').then((res) => {
-        //   this.peoples = res.data.allPeople
-        // })
   }
 };
 </script>

@@ -72,34 +72,20 @@ export default {
         login(){
           this.$validator.validate().then(valid => {
             if (valid){
-              let config = {
-                headers: {
-                  'Content-Type': 'application/json',
-                }
-              }
-              // axios.defaults.headers.post['Content-Type'] = 'application/json'
-              
-              api.post('http://localhost:3000/auth/sign-in',JSON.stringify(this.user)).then((res) => {
-                if(res.data.error||res.data.error===null){
-                  console.log('Bug')
-                }else{
-                  console.log(res);
-                }
+              api.post('http://localhost:3000/api/auth/sign-in', this.user)
+              .then((res) => {
+                console.log(res)
+                if(!res.data.error){
+                  const data = res.data;
+                  this.saveUser({
+                    token: data.token,
+                    user: data.user,
+                  }); 
+                };
               }).catch((err)=>{
                 console.log('Form not submitted')
               })
             }
-            // if (valid) {
-            //   this.saveUser({
-            //   token: 'kkkk',
-            //   user: {
-            //     name: 'Vasya',
-            //     surname: 'Vasurname',
-            //     gender: 'Mr',
-            //     photo: '',
-            //     },
-            //   });
-            // }
             else{
               this.$refs.emailInput.focus()
               this.valide.show = true
@@ -108,8 +94,6 @@ export default {
         },
         saveUser(user){
             localStorage.setItem('user',JSON.stringify(user));
-            // api.init('https://swapi.co/api');
-            // api.init('http://localhost:3000')
             api.setHeader();
             this.$router.push('/profile/personal');
         }

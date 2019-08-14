@@ -7,54 +7,56 @@
         <nav-component v-bind:active="active"></nav-component>
         <section class="profile">
                 <div class="profile__photo">
-                    <img src="../assets/profile.png" alt="profile_img">
+                    <img :src="person.photo" alt="profile_img">
                     <div class="profile__link">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.62408 2.49908L8.98063 4.14914L4.80382 10.1143L2.4484 8.46399L6.62408 2.49908ZM10.0623 1.39465L9.0114 0.658776C8.60525 0.374386 8.04461 0.473243 7.75904 0.879601L7.05415 1.88629L9.41071 3.53637L10.2329 2.36212C10.4535 2.04709 10.3773 1.61522 10.0623 1.39465ZM1.89652 11.4646C1.889 11.6352 2.06306 11.7561 2.22012 11.6872L4.35705 10.7523L2.00163 9.10207L1.89652 11.4646Z" fill="#2A74DB"/>
                     </svg>
-                    <a href="#">Change photo</a>
+                    <label for="file" href="#">Change photo</label>
+                    <input @change="updatePhoto($event)" type="file" class="form__input--file" id="file" ref=file>
                     </div>
                 </div>
                 <form action="" class="profile__form form">
                     <div class="form__wrap">
                         <label for="" class="form__label">First name
                         </label>
-                        <input type="text" id="name" class="form__input">
+                        <input @change="updateName" type="text" id="name" class="form__input" v-model="person.name">
                     </div>
                     <div class="form__wrap">
                         <label for="surname" class="form__label">Last name
                         </label>
-                        <input type="text" id="surname" class="form__input">
+                        <input @change="updateSurname" type="text" id="surname" class="form__input" v-model="person.surname">
                     </div>
                     <div class="form__wrap">
                         <label for="" class="form__label">Title
                         </label>
-                        <select class="form__select">
-                            <option>MR</option>
-                            <option>Пункт 2</option>
+                        <select @change="updateGender" class="form__select" v-model="person.gender">
+                            <option :selected="person.gender=='Mr'">Mr</option>
+                            <option :selected="person.gender=='undefined?'">undefined?</option>
+                            <option :selected="person.gender=='Ms'">Ms</option>
                         </select>
                     </div>
                     <div class="form__wrap">
                     <label for="" class="form__label">Mobile phone
                         </label>
                         <div class="form__wrap--special">
-                        <select class="form__select form__select--phone">
-                            <option><img src="img/profile/flag/singapur.png" alt="" srcset=""></option>
-                            <option>Пункт 2</option>
+                        <select v-model="prefix" class="form__select form__select--phone">
+                            <option selected >+380</option>
+                            <option>+044</option>
                         </select>
-                        <input type="text" class="form__input form__input--phone">
+                        <input @change="updateMobile" type="text" class="form__input form__input--phone" v-model="person.mobile">
                         </div>
                     </div>
-                        <div class="form__wrap">
-                            <label for="" class="form__label">Country</label>
-                            <select class="form__select form__select--country">
-                                <option>UA</option>
-                                <option>Пункт 2</option>
-                            </select>
+                    <div class="form__wrap">
+                        <label for="" class="form__label">Country</label>
+                        <select class="form__select form__select--country">
+                            <option :selected="person.country=='Ukrain'">Ukraine</option>
+                            <option :selected="person.country=='Poland'">Poland</option>
+                        </select>
                     </div>
                     <div class="form__wrap">
                         <label for="" class="form__label">Company</label>
-                        <input type="text" id="company" class="form__input">
+                        <input @change="updateCompany" type="text" id="company" class="form__input" v-model="person.company">
                     </div>
                 </form>
             </section>
@@ -67,12 +69,12 @@
 import asideComponent from '../../components/aside';
 import headerComponent from '../../components/header';
 import navComponent from '../components/nav'
-
+import api from '../../shared/services/api.axios'
 
 export default{
     name: 'personal',
     data: function () {
-        return{
+        return {
             active: {
                 info: true,
                 person: true
@@ -81,12 +83,86 @@ export default{
                 {id: 1,text: 'Home'},
                 {id: 2,text: 'My profile'},
             ],
+            person: {},
+            prefix: '',
         }
     },
     components: {
         asideComponent,
         headerComponent,
         navComponent,
+    },
+    mounted(){
+        api.setHeader();
+        api.get('http://localhost:3000/api/auth/profile').then((res)=>{
+            this.person=res.data.user
+        });
+    },
+    methods:{
+        updateName(){
+            setTimeout(()=>{
+                api.put('http://localhost:3000/api/auth/profile',{ name: this.person.name })
+                .then((res)=>{
+                    alert(`You changed the name to ${res.data.name}`)
+                }).catch((err)=>{
+                    console.log('WTF?');
+                });
+            },2000)
+        },
+        updateSurname(){
+            setTimeout(()=>{
+                api.put('http://localhost:3000/api/auth/profile',{ surname: this.person.surname })
+                .then((res)=>{
+                    alert(`You changed the surname to ${res.data.surname}`)
+                }).catch((err)=>{
+                    console.log('WTF?');
+                });
+            },2000)
+        },
+        updateCompany(){
+            setTimeout(()=>{
+                api.put('http://localhost:3000/api/auth/profile',{ company: this.person.company })
+                .then((res)=>{
+                    alert(`You changed the company to ${res.data.company}`)
+                }).catch((err)=>{
+                    console.log('WTF?');
+                });
+            },2000)
+        },
+        updateMobile(){
+            setTimeout(()=>{
+                const mobile = `${this.prefix}${this.person.mobile}`
+                api.put('http://localhost:3000/api/auth/profile',{ mobile,})
+                .then((res)=>{
+                    alert(`You changed the phone to ${mobile}`)
+                }).catch((err)=>{
+                    console.log('WTF?');
+                });
+            },2000)
+        },
+        updateGender(){
+            setTimeout(()=>{
+                api.put('http://localhost:3000/api/auth/profile',{ gender: this.person.gender })
+                .then((res)=>{
+                    alert(`You changed the gender to ${res.data.gender}`)
+                }).catch((err)=>{
+                    console.log('WTF?');
+                });
+            },2000)
+        },
+        updatePhoto(event){
+            // debugger
+            let file = event.target.files[0]
+
+        
+            const formData = new FormData();
+            formData.set('photo', file);
+            console.log(formData)
+            api.put('http://localhost:3000/api/auth/photo',formData)
+            .then((res)=>{
+                console.log(res)
+            })
+        }
     }
 }
 </script>
@@ -94,6 +170,8 @@ export default{
 <style lang="sass" scoped>
 @import '../../shared/style/variables.sass'
 @import '../../shared/style/respond.sass'
+.form__input--file
+    display: none
 .main
     display: flex
     justify-content: center
@@ -121,6 +199,7 @@ export default{
     img
         width: 134px
         height: 134px
+        border-radius: 50%
     @include respond_tablet
         order: 2
         

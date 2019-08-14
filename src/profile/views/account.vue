@@ -8,11 +8,11 @@
         <form action class="form">
           <div class="form__wrap">
             <label for class="form__label">USERNAME</label>
-            <input type="text" class="form__input" />
+            <input @change="updateUserName" v-model="person.username" type="text" class="form__input" />
           </div>
           <div class="form__wrap">
             <label for class="form__label">E-MAIL</label>
-            <input type="text" class="form__input" />
+            <input @change="updateEmail" type="text" class="form__input" v-model="person.email"/>
           </div>
         </form>
         <div class="button">
@@ -27,6 +27,8 @@
 import asideComponent from "../../components/aside";
 import headerComponent from "../../components/header";
 import navComponent from "../components/nav";
+import api from "../../shared/services/api.axios"
+import { setTimeout } from 'timers';
 
 export default {
   name: "personal",
@@ -36,13 +38,44 @@ export default {
         info: true,
         account: true
       },
-      breadcrumbs: [{ id: 1, text: "Home" }, { id: 2, text: "My profile" }]
+      breadcrumbs: [{ id: 1, text: "Home" }, { id: 2, text: "My profile" }],
+      person: {},
     };
   },
   components: {
     asideComponent,
     headerComponent,
     navComponent
+  },
+  mounted(){
+    api.setHeader();
+    api.get('http://localhost:3000/api/auth/profile').then((res)=>{
+      this.person=res.data.user
+    });
+  },
+  methods:{
+    updateUserName(){
+      setTimeout(()=>{
+        api.put('http://localhost:3000/api/auth/profile',{
+          username: this.person.username
+        }).then((res)=>{
+        console.log(res)
+        }).catch((err)=>{
+          console.log('WTF?')
+        });
+      },2000)
+    },
+    updateEmail(){
+      setTimeout(()=>{
+        api.put('http://localhost:3000/api/auth/profile',{
+          email: this.person.email
+        }).then((res)=>{
+          console.log(res)
+        }).catch((err)=>{
+          alert('Such a Email already exists')
+        });
+      },2000)
+    }
   }
 };
 </script>
