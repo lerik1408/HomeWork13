@@ -49,7 +49,7 @@
                     </div>
                     <div class="form__wrap">
                         <label for="" class="form__label">Country</label>
-                        <select class="form__select form__select--country">
+                        <select @change="updateCountry" class="form__select form__select--country" v-model="person.country">
                             <option :selected="person.country=='Ukrain'">Ukraine</option>
                             <option :selected="person.country=='Poland'">Poland</option>
                         </select>
@@ -95,6 +95,7 @@ export default{
     mounted(){
         api.setHeader();
         api.get('http://localhost:3000/api/auth/profile').then((res)=>{
+            console.log(res)
             this.person=res.data.user
         });
     },
@@ -124,6 +125,16 @@ export default{
                 api.put('http://localhost:3000/api/auth/profile',{ company: this.person.company })
                 .then((res)=>{
                     alert(`You changed the company to ${res.data.company}`)
+                }).catch((err)=>{
+                    console.log('WTF?');
+                });
+            },2000)
+        },
+        updateCountry(){
+            setTimeout(()=>{
+                api.put('http://localhost:3000/api/auth/profile',{ country: this.person.country })
+                .then((res)=>{
+                    alert(`You changed the country to ${res.data.country}`)
                 }).catch((err)=>{
                     console.log('WTF?');
                 });
