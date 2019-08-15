@@ -94,7 +94,7 @@ export default{
     },
     mounted(){
         api.setHeader();
-        api.get('http://localhost:3000/api/auth/profile').then((res)=>{
+        api.get('http://localhost:3000/api/profile/person').then((res)=>{
             console.log(res)
             this.person=res.data.user
         });
@@ -102,7 +102,7 @@ export default{
     methods:{
         updateName(){
             setTimeout(()=>{
-                api.put('http://localhost:3000/api/auth/profile',{ name: this.person.name })
+                api.put('http://localhost:3000/api/profile/person',{ name: this.person.name })
                 .then((res)=>{
                     alert(`You changed the name to ${res.data.name}`)
                 }).catch((err)=>{
@@ -112,7 +112,7 @@ export default{
         },
         updateSurname(){
             setTimeout(()=>{
-                api.put('http://localhost:3000/api/auth/profile',{ surname: this.person.surname })
+                api.put('http://localhost:3000/api/profile/person',{ surname: this.person.surname })
                 .then((res)=>{
                     alert(`You changed the surname to ${res.data.surname}`)
                 }).catch((err)=>{
@@ -122,7 +122,7 @@ export default{
         },
         updateCompany(){
             setTimeout(()=>{
-                api.put('http://localhost:3000/api/auth/profile',{ company: this.person.company })
+                api.put('http://localhost:3000/api/profile/person',{ company: this.person.company })
                 .then((res)=>{
                     alert(`You changed the company to ${res.data.company}`)
                 }).catch((err)=>{
@@ -132,7 +132,7 @@ export default{
         },
         updateCountry(){
             setTimeout(()=>{
-                api.put('http://localhost:3000/api/auth/profile',{ country: this.person.country })
+                api.put('http://localhost:3000/api/profile/person',{ country: this.person.country })
                 .then((res)=>{
                     alert(`You changed the country to ${res.data.country}`)
                 }).catch((err)=>{
@@ -143,7 +143,7 @@ export default{
         updateMobile(){
             setTimeout(()=>{
                 const mobile = `${this.prefix}${this.person.mobile}`
-                api.put('http://localhost:3000/api/auth/profile',{ mobile,})
+                api.put('http://localhost:3000/api/profile/person',{ mobile,})
                 .then((res)=>{
                     alert(`You changed the phone to ${mobile}`)
                 }).catch((err)=>{
@@ -153,7 +153,7 @@ export default{
         },
         updateGender(){
             setTimeout(()=>{
-                api.put('http://localhost:3000/api/auth/profile',{ gender: this.person.gender })
+                api.put('http://localhost:3000/api/profile/person',{ gender: this.person.gender })
                 .then((res)=>{
                     alert(`You changed the gender to ${res.data.gender}`)
                 }).catch((err)=>{
@@ -169,7 +169,7 @@ export default{
             const formData = new FormData();
             formData.set('photo', file);
             console.log(formData)
-            api.put('http://localhost:3000/api/auth/photo',formData)
+            api.put('http://localhost:3000/api/profile/photo',formData)
             .then((res)=>{
                 console.log(res)
             })

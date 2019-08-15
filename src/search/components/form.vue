@@ -66,7 +66,7 @@ export default{
         }
     },
     mounted () {
-       api.get('http://localhost:3000/api/auth/category').then((res) => {
+       api.get('http://localhost:3000/api/search/category').then((res) => {
             this.categorys = res.data.categorys
         }); 
     }

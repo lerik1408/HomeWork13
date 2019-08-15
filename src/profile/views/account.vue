@@ -49,14 +49,14 @@ export default {
   },
   mounted(){
     api.setHeader();
-    api.get('http://localhost:3000/api/auth/profile').then((res)=>{
+    api.get('http://localhost:3000/api/profile/person').then((res)=>{
       this.person=res.data.user
     });
   },
   methods:{
     updateUserName(){
       setTimeout(()=>{
-        api.put('http://localhost:3000/api/auth/profile',{
+        api.put('http://localhost:3000/api/profile/perosn',{
           username: this.person.username
         }).then((res)=>{
         console.log(res)
@@ -67,7 +67,7 @@ export default {
     },
     updateEmail(){
       setTimeout(()=>{
-        api.put('http://localhost:3000/api/auth/profile',{
+        api.put('http://localhost:3000/api/profile/person',{
           email: this.person.email
         }).then((res)=>{
           console.log(res)
