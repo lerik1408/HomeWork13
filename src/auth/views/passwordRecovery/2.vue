@@ -6,11 +6,20 @@
         </header>
         <main class="main">
             <div class="main__wrap">
-                <form action="" method="get" class="form">
+                <form @submit.prevent="submit" class="form">
                     <h3 class="form__headline">Reset your password</h3>
-                    <input type="text" class="form__input" placeholder="New password">
-                    <input type="text" class="form__input" placeholder="Confirm password">
-                    <button class="form__button">Reset</button>
+                    <input v-validate.continues="{min:6,regex: /[0-9]/}" name="password" type="text" class="form__input" placeholder="Create a new password" ref="password" v-model="password">
+                    <span
+                    v-for="(error,i) in errors.collect('password')"
+                    :key="i"
+                    ref="message"
+                    class="message"
+                    >
+                    {{error}}
+                    </span>
+                    <input v-validate="'required|confirmed:password'" name="password_confirmation" type="text" class="form__input" placeholder="Confirm password" >
+                    <span class="message">{{ errors.first('password_confirmation') }}</span>
+                    <button class="form__button" type="submit">Reset</button>
                 </form>
             </div>
         </main>
@@ -19,12 +28,36 @@
 <script>
 import LogoComponent from '../../components/logo.vue';
 import QuestionComponent from '../../components/backSiginIn.vue';
+import api from '../../../shared/services/api.axios';
 
 export default {
   name: 'pasword2',
   components: {
     LogoComponent,
     QuestionComponent,
+  },
+  data(){
+      return{
+        password: ''
+      }
+  },
+  methods:{
+      submit(){
+          this.$validator.validate().then(valid => {
+              if(valid){
+                let user = JSON.parse(localStorage.getItem('recovery'));
+                user.password=this.password;
+                console.log(user)
+                api.put('http://localhost:3000/api/auth/password',user).then((res)=>{
+                    console.log(res)
+                }).catch((err)=>{
+                    alert(err)
+                })
+              }else{
+                  console.log('NAHUI')
+              }
+          });
+      }
   }
 }
 </script>
@@ -97,6 +130,9 @@ export default {
     margin-top: 14px
     @include respond_tablet
         align-self: center
+.message
+    color: tomato
+    margin-bottom: 10px
 </style>
 
 

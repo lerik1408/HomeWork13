@@ -38,7 +38,7 @@
           >
           {{ errors.first('password') }}
         </span>
-        <router-link to="/password-recovery-2" class="form__link">Forgot password?</router-link>
+        <router-link to="/password-recovery-1" class="form__link">Forgot password?</router-link>
         <button type="submit" class="form__button">Sigin in</button>
       </form>
     </div>

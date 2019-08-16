@@ -33,7 +33,7 @@
                     {{ errors.first('username') }}
                     </span>
                     <input  v-model="user.email"
-                            v-validate="{required,regex: /^(\S+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+$/}"
+                            v-validate="{'required':true,regex: /^(\S+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+$/}"
                             name="email"
                             type="text"
                             class="form__input"

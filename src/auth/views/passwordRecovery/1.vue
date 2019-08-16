@@ -6,10 +6,23 @@
         </header>
         <main class="main">
           <div class="main__wrap">
-              <form action="" method="get" class="form">
-              <h3 class="form__headline">Enter your e-mail to reset your password</h3>
-              <input type="text" class="form__input" placeholder="E-mail">
-              <button class="form__button">Send</button>
+                <form @submit.prevent="firstStage" class="form">
+                <h3 class="form__headline">Enter your e-mail to reset your password</h3>
+                <input  v-model="user.email"
+                v-validate="{'required':true, regex: /^(\S+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+$/}"
+                name="email"
+                type="text"
+                class="form__input"
+                placeholder="E-mail"
+                ref="input"
+                />
+                <span
+                ref="message"
+                class="message"
+                :class="{'message--novalid': valide.show}">
+                {{ errors.first('email') }}
+                </span>
+                <button class="form__button" type="submit">Send</button>
               </form>
           </div>
         </main>
@@ -19,14 +32,44 @@
 <script>
 import LogoComponent from '../../components/logo.vue';
 import QuestionComponent from '../../components/backSiginIn.vue';
-// import FormComponent from '../components/entMailForReset/form.vue'
+import api from '../../../shared/services/api.axios'
 
 export default {
-  name: 'pasword1',
+  name: 'password1',
   components: {
     LogoComponent,
     QuestionComponent,
-    // FormComponent,
+  },
+  data(){
+      return{
+        user:{
+          email: '',
+        },
+        valide:{
+          show: false,
+        }
+      }
+  },
+  methods:{
+    firstStage(){
+        this.$validator.validate().then(valid => {
+            if(valid){
+            api.post('http://localhost:3000/api/auth/check-email',this.user).then((res) => {
+                if(res.data.people.length===0){
+                    alert('Such mail does not exist');
+                }else{
+                    localStorage.setItem('recovery',JSON.stringify(res.data.people[0]));
+                    this.$router.push('/password-recovery-2');
+                }
+                }).catch((err) => {
+                    alert(err);
+                });
+            }else{
+                this.valide.show=true
+                this.$refs.input.focus()
+            }
+        });
+    }
   }
 }
 </script>
@@ -103,6 +146,12 @@ export default {
     margin-top: 14px
     @include respond_tablet
         align-self: center
+.message
+  display: none
+  margin-bottom: 10px 
+.message--novalid
+  color: tomato
+  display: block
 </style>
 
 

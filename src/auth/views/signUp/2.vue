@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <input v-validate="'required|confirmed:password'" name="password_confirmation" type="text" class="form__input" placeholder="Confirm password" >
-                    <span>{{ errors.first('password_confirmation') }}</span>
+                    <span class="message">{{ errors.first('password_confirmation') }}</span>
                     <div class="checkboxs">
                         <div class="checkbox" :class="{'checkbox--invalid':checked.first}">
                             <input type="checkbox" class="input__checkbox" id="agreefirst" ref="agreefirst">
@@ -270,12 +270,8 @@ export default {
 .bar__item--good
     background: $good
 .message
-    // display: none
     color: tomato
     margin-bottom: 10px
-// .message--novalid
-//   color: red
-//   display: block
 </style>
 
 
