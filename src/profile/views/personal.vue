@@ -95,7 +95,6 @@ export default{
     mounted(){
         api.setHeader();
         api.get('http://localhost:3000/api/profile/person').then((res)=>{
-            console.log(res)
             this.person=res.data.user
         });
     },
@@ -106,7 +105,7 @@ export default{
                 .then((res)=>{
                     alert(`You changed the name to ${res.data.name}`)
                 }).catch((err)=>{
-                    console.log('WTF?');
+                    alert(err);
                 });
             },2000)
         },
@@ -116,7 +115,7 @@ export default{
                 .then((res)=>{
                     alert(`You changed the surname to ${res.data.surname}`)
                 }).catch((err)=>{
-                    console.log('WTF?');
+                    alert(err)
                 });
             },2000)
         },
@@ -126,7 +125,7 @@ export default{
                 .then((res)=>{
                     alert(`You changed the company to ${res.data.company}`)
                 }).catch((err)=>{
-                    console.log('WTF?');
+                    alert(err)
                 });
             },2000)
         },
@@ -136,7 +135,7 @@ export default{
                 .then((res)=>{
                     alert(`You changed the country to ${res.data.country}`)
                 }).catch((err)=>{
-                    console.log('WTF?');
+                    alert(err)
                 });
             },2000)
         },
@@ -144,10 +143,10 @@ export default{
             setTimeout(()=>{
                 const mobile = `${this.prefix}${this.person.mobile}`
                 api.put('http://localhost:3000/api/profile/person',{ mobile,})
-                .then((res)=>{
+                .then(()=>{
                     alert(`You changed the phone to ${mobile}`)
                 }).catch((err)=>{
-                    console.log('WTF?');
+                    alert(err)
                 });
             },2000)
         },
@@ -157,21 +156,17 @@ export default{
                 .then((res)=>{
                     alert(`You changed the gender to ${res.data.gender}`)
                 }).catch((err)=>{
-                    console.log('WTF?');
+                    alert(err)
                 });
             },2000)
         },
         updatePhoto(event){
-            // debugger
             let file = event.target.files[0]
-
-        
             const formData = new FormData();
             formData.set('photo', file);
-            console.log(formData)
             api.put('http://localhost:3000/api/profile/photo',formData)
             .then((res)=>{
-                console.log(res)
+                alert(`You changed the photo to ${res.data.photo}`);
             })
         }
     }

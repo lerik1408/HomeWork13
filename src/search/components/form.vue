@@ -50,10 +50,8 @@ export default{
     },
     methods:{
         searchName(){
-            console.log('dw')
         },
         searchCategory(){
-            console.log(this.$refs.nameInput.value)
         },
         submit(){
             alert('dw')
@@ -62,7 +60,6 @@ export default{
             }else{
                 this.$refs.nameInput.setAttribute("disable")
             }
-            // console.log(this.$refs.nameInput)
         }
     },
     mounted () {

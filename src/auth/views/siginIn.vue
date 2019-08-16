@@ -50,7 +50,6 @@
 import LogoComponent from '../components/logo.vue';
 import QuestionComponent from '../components/queNoHave.vue';
 import api from '../../shared/services/api.axios'
-import axios from 'axios'
 
 export default {
   name: 'app',
@@ -74,16 +73,15 @@ export default {
             if (valid){
               api.post('http://localhost:3000/api/auth/sign-in', this.user)
               .then((res) => {
-                console.log(res)
                 if(!res.data.error){
                   const data = res.data;
                   this.saveUser({
                     token: data.token,
                     user: data.user,
                   }); 
-                };
+                }
               }).catch((err)=>{
-                console.log('Form not submitted')
+                alert(`Form not submitted + ${err}`)
               })
             }
             else{

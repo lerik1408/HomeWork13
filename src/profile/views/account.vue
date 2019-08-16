@@ -59,9 +59,9 @@ export default {
         api.put('http://localhost:3000/api/profile/perosn',{
           username: this.person.username
         }).then((res)=>{
-        console.log(res)
+          alert(`You changed the gender to ${res.data.username}`)
         }).catch((err)=>{
-          console.log('WTF?')
+          alert(err)
         });
       },2000)
     },
@@ -70,9 +70,9 @@ export default {
         api.put('http://localhost:3000/api/profile/person',{
           email: this.person.email
         }).then((res)=>{
-          console.log(res)
+          alert(`You changed the gender to ${res.data.email}`);
         }).catch((err)=>{
-          alert('Such a Email already exists')
+          alert(`Such a Email already exists + ${err}`);
         });
       },2000)
     }

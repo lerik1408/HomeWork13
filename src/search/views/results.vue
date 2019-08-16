@@ -63,7 +63,7 @@ export default {
     peopleComponent,
   },
   mounted: function(){
-    console.log(this.$route.params.id)
+
     if(this.$route.params.id){
       api.get(`http://localhost:3000/api/search/${this.$route.params.id}`).then((res) => {
         this.peoples = res.data.allPeople

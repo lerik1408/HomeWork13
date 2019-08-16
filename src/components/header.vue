@@ -54,7 +54,6 @@ export default{
       },
       show(){
         this.$store.commit('show');
-        // console.log(this.$store.state.flag);
       },
       showMenu(){
         this.menuFlag=!this.menuFlag
