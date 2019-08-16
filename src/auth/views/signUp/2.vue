@@ -3,26 +3,42 @@
         <header-component></header-component>
         <main class="main">
             <div class="main__wrap">
-                <form action="" method="get" class="form">
+                <form @submit.prevent="submit" class="form">
                     <h3 class="form__headline">Complete your account</h3>
-                    <input type="text" class="form__input" placeholder="Create a password" id="pass">
-                    <div v-if="showFlag" class="bar">
-                        <div class="bar__item"></div>
-                        <div class="bar__item"></div>
-                        <div class="bar__item"></div>
+                    <input v-validate.continues="{min:6,regex: /[0-9]/}" @input="difficultyСheck($event)" name="password" type="text" class="form__input" placeholder="Create a password" ref="password" v-model="password">
+                        <span
+                        v-for="(error,i) in errors.collect('password')"
+                        :key="i"
+                        ref="message"
+                        class="message"
+                        >
+                        {{error}}
+                        </span>
+                    <div class="bar">
+                        <div class="bar__item" 
+                        :class="{'bar__item--low':bar.low, 'bar__item--normal':bar.normal,'bar__item--good':bar.good}">
+
+                        </div>
+                        <div class="bar__item"
+                        :class="{'bar__item--normal':bar.normal,'bar__item--good':bar.good}">
+                        </div>
+                        <div class="bar__item" 
+                        :class="{'bar__item--good':bar.good}">
+                        </div>
                     </div>
-                    <input type="text" class="form__input" placeholder="Confirm password">
+                    <input v-validate="'required|confirmed:password'" name="password_confirmation" type="text" class="form__input" placeholder="Confirm password" >
+                    <span>{{ errors.first('password_confirmation') }}</span>
                     <div class="checkboxs">
-                        <div class="checkbox">
-                            <input type="checkbox" class="input__checkbox" id="agreefirst">
+                        <div class="checkbox" :class="{'checkbox--invalid':checked.first}">
+                            <input type="checkbox" class="input__checkbox" id="agreefirst" ref="agreefirst">
                             <label for="agreefirst" class="form__label label">agree to the myFixer.com<a href="#" class="label__link">Terms of Service</a></label>
                         </div>
-                        <div class="checkbox">
-                            <input type="checkbox" class="input__checkbox" id="agreesec">
+                        <div class="checkbox" :class="{'checkbox--invalid':checked.second}">
+                            <input type="checkbox" class="input__checkbox" id="agreesec" ref="agreesec">
                             <label for="agreesec" class="form__label label">agree to the myFixer.com<a href="#" class="label__link">Privacy Policy</a></label>
                         </div>
                     </div>
-                    <button class="form__button">Get started</button>
+                    <button class="form__button" type="submit">Get started</button>
                 </form>
             </div>
         </main>
@@ -30,12 +46,82 @@
 </template>
 <script>
 import HeaderComponent from '../../components/header.vue';
+import api from '@/shared/services/api.axios'
 
 
 export default {
   name: 'SignUp-2',
   components: {
     HeaderComponent,
+  },
+  data(){
+    return{
+        checked:{
+            first: false,
+            second: false
+        },
+        password: '',
+        bar:{
+            low: false,
+            normal: false,
+            good: false,
+            count: 0,
+            setCount(){
+                // debugger
+                if (this.count==1){
+                    this.low = true;
+                    this.normal = false;
+                    this.good = false;
+                }else if (this.count==2){
+                    this.normal = true;
+                    this.good = false;
+                }else if(this.count==3){
+                    this.good = true;
+                }else{
+                    this.low = false;
+                    this.normal = false;
+                    this.good = false;
+                }
+            }
+        }
+    }
+  },
+  methods:{
+    difficultyСheck(event){
+        this.$validator.validate('password').then(valid => {
+            if(valid){
+                this.bar.count+=1;
+                if(event.target.value.length>10){
+                    this.bar.count+=1;
+                }
+                if(/([A-Z])/.test(event.target.value)){
+                    this.bar.count+=1;
+                }
+                this.bar.setCount()
+                this.bar.count=0
+            }else{
+                this.bar.setCount()
+                this.bar.count=0
+            }
+        })
+    },
+    submit(){
+        this.$validator.validate().then(valid => {
+            if(valid && this.$refs.agreefirst.checked && this.$refs.agreesec.checked){
+                let user = JSON.parse(localStorage.getItem('registration'));
+                user.password=this.password;
+                api.post('http://localhost:3000/api/auth/sign-up', user).then(()=>{
+                    localStorage.removeItem('registration');
+                    this.$router.push('/sign-up-3');
+                }).catch((err) =>{
+                    alert(err);
+                });
+            }else{
+                this.checked.first=!this.$refs.agreefirst.checked;
+                this.checked.second=!this.$refs.agreesec.checked;
+            }
+        })
+    }
   }
 }
 </script>
@@ -127,8 +213,9 @@ export default {
     width: 22px
     border: 2px solid #F2F2F2
     border-radius: 2px
-
-.checkbox label::after 
+.checkbox--invalid label::before
+    border: 2px solid tomato
+.checkbox label::after
     content: ""
     display: inline-block
     height: 6px
@@ -182,6 +269,13 @@ export default {
     background: $normal
 .bar__item--good
     background: $good
+.message
+    // display: none
+    color: tomato
+    margin-bottom: 10px
+// .message--novalid
+//   color: red
+//   display: block
 </style>
 
 

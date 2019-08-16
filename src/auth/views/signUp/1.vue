@@ -3,15 +3,53 @@
         <header-component></header-component>
         <main class="main">
             <div class="main__wrap">
-                <form action="" method="get" class="form">
+                <form class="form" @submit.prevent="FirstStage">
                     <h3 class="form__headline"> Sign Up</h3>
                     <div class="form__user-name">
-                        <input type="text" class="form__input" placeholder="Name">
-                        <input type="text" class="form__input" placeholder="Last name">
+                        <input v-model="user.name" type="text" class="form__input" placeholder="Name" v-validate="'required'" name="name" >
+                        <span
+                        ref="message"
+                        class="message"
+                        :class="{'message--novalid': valide.show}"
+                        >
+                        {{ errors.first('name') }}
+                        </span>
+                        <input v-model="user.surname" type="text" class="form__input" placeholder="Last name" v-validate="'required'" name="surname">
+                        <span
+                        ref="message"
+                        class="message"
+                        :class="{'message--novalid': valide.show}"
+                        >
+                        {{ errors.first('surname') }}
+                        </span>
                     </div>
-                    <input type="text" class="form__input" placeholder="E-mail">
-                    <input type="text" class="form__input" placeholder="Password">
-                    <button class="form__button">Get started</button>
+                    <input v-model="user.username" type="text" class="form__input" placeholder="Username" v-validate="'required'"
+                    name="username">
+                    <span
+                    ref="message"
+                    class="message"
+                    :class="{'message--novalid': valide.show}"
+                    >
+                    {{ errors.first('username') }}
+                    </span>
+                    <input  v-model="user.email"
+                            v-validate="{required,regex: /^(\S+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+$/}"
+                            name="email"
+                            type="text"
+                            class="form__input"
+                            placeholder="E-mail"
+                            ref="emailInput"
+                    />
+                    <span
+                    ref="message"
+                    class="message"
+                    :class="{'message--novalid': valide.show}"
+                    >
+                    {{ errors.first('email') }}
+                    </span>
+                    <button class="form__button"
+                    type="submit">
+                    Get started</button>
                 </form>
             </div>
         </main>
@@ -19,12 +57,46 @@
 </template>
 <script>
 import HeaderComponent from '../../components/header.vue';
-
+import api from '@/shared/services/api.axios'
 
 export default {
   name: 'SignUp-1',
   components: {
     HeaderComponent,
+  },
+  data() {
+      return{
+        user:{
+            name:'',
+            surname:'',
+            username:'',
+            email:'',
+        },
+        valide:{
+            show: false,
+        }
+      }
+  },
+  methods:{
+    FirstStage(){
+        this.$validator.validate().then(valid => {
+        if (!valid) {
+            this.valide.show = true
+        }else{
+            api.post('http://localhost:3000/api/auth/check-email',this.user).then((res) => {
+                if(res.data.people.length===0){
+                    localStorage.setItem('registration',JSON.stringify(this.user));
+                    this.$router.push('/sign-up-2');
+                }else{
+                    alert('This mail is busy')
+                }
+            }).catch((err) => {
+                alert(err);
+            });
+        }
+      });
+ 
+    }
   }
 }
 </script>
@@ -99,6 +171,12 @@ export default {
         width: 47.5%
         &:first-child
             margin-right: 5%
+.message
+  display: none
+  margin-bottom: 10px 
+.message--novalid
+  color: tomato
+  display: block
 </style>
 
 

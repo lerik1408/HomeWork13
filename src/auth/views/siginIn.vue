@@ -62,8 +62,8 @@ export default {
             user:{email: "", password: ""},
             valide:{
               show: false,
-              email: true,
-              password: true,
+              // email: true,
+              // password: true,
             }
         }
     },
@@ -79,8 +79,11 @@ export default {
                     token: data.token,
                     user: data.user,
                   }); 
+                }else{
+                  alert(res.data.error)
                 }
-              }).catch((err)=>{
+              })
+              .catch((err)=>{
                 alert(`Form not submitted + ${err}`)
               })
             }
