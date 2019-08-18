@@ -8,7 +8,7 @@
             <div class="main__wrap">
                 <form @submit.prevent="submit" class="form">
                     <h3 class="form__headline">Reset your password</h3>
-                    <input v-validate.continues="{min:6,regex: /[0-9]/}" name="password" type="text" class="form__input" placeholder="Create a new password" ref="password" v-model="password">
+                    <input v-validate.continues="{min:6,regex: /[0-9]/}" name="password" type="password" class="form__input" placeholder="Create a new password" ref="password" v-model="password">
                     <span
                     v-for="(error,i) in errors.collect('password')"
                     :key="i"
@@ -17,7 +17,7 @@
                     >
                     {{error}}
                     </span>
-                    <input v-validate="'required|confirmed:password'" name="password_confirmation" type="text" class="form__input" placeholder="Confirm password" >
+                    <input v-validate="'required|confirmed:password'" name="password_confirmation" type="password" class="form__input" placeholder="Confirm password" >
                     <span class="message">{{ errors.first('password_confirmation') }}</span>
                     <button class="form__button" type="submit">Reset</button>
                 </form>
@@ -47,14 +47,16 @@ export default {
               if(valid){
                 let user = JSON.parse(localStorage.getItem('recovery'));
                 user.password=this.password;
-                console.log(user)
-                api.put('http://localhost:3000/api/auth/password',user).then((res)=>{
-                    console.log(res)
+                api.put('http://localhost:3000/api/auth/password',user).then(()=>{
+                    api.post('http://localhost:3000/api/auth/sign-up',user).then(()=>{
+                        localStorage.removeItem('recovery');
+                        this.$router.push('/password-recovery-3');
+                    }).catch((err)=>{
+                        alert(err);
+                    });
                 }).catch((err)=>{
                     alert(err)
                 })
-              }else{
-                  console.log('NAHUI')
               }
           });
       }

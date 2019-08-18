@@ -15,7 +15,7 @@
                 <div class="people__stack stack">
                     <p class="stack__stack">Stack: </p>
                     <p class="stack__skills">{{people.stack[0].name}}</p>
-                    <a href='#' class="stack__link">More</a>
+                    <router-link :to="'profile/'+people._id" class="stack__link">More</router-link>
                 </div>
                 <div class="people__price price">
                     <p class="price__text">Base Daily Rate:</p>

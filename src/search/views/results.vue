@@ -4,14 +4,16 @@
     <header-component v-bind:breadcrumbs="breadcrumbs"></header-component>
     <main class="main">
       <section class="main__wrap">
-        <form-component></form-component>
+        <form-component @category="category"></form-component>
         <div class="content">
           <div class="control">
             <p class="control-text">SHOW MAP</p>
-            <input type="checkbox" id="price" class="control__checkbox" />
-            <label for="price" class="control__label">by price</label>
-            <input type="checkbox" id="rating" class="control__checkbox" />
-            <label for="rating" class="control__label">by rating</label>
+            
+              <input type="radio" name="control" id="price" class="control__checkbox" @change="price($event)"/>
+              <label for="price" class="control__label">by price</label>
+              <input type="radio" name="control" id="rating" class="control__checkbox" @change="rating($event)"/>
+              <label for="rating" class="control__label">by rating</label>
+            
           </div>
           <div class="people">
             <people-component
@@ -20,7 +22,9 @@
               v-bind:key="people._id"
             ></people-component>
           </div>
-          <!-- <div class="pagination"></div> -->
+          <div class="pagination">
+            
+          </div>
         </div>
       </section>
     </main>
@@ -41,19 +45,12 @@ export default {
       peoples: undefined,
       active: {
         search: true,
-        
       },
       breadcrumbs: [
         { id: 1, text: 'Home' },
         { id: 2, text: 'Search' },
         { id: 3, text: 'Results'},
       ],
-      
-        // peoples: [
-        //         {id: 1,img:'../search/people1.png', name:'name 1',rating: 1,country: 'UA',skills: 'Node js',price: 500},
-        //         {id: 2,img:'../search/people2.png', name:'name 2',rating: 2,country: 'USA',skills: 'JS',price: 1000},
-        //         {id: 3,img:'../search/people3.png', name:'name 3',rating: 3,country: 'Poland',skills: 'C++',price: 5000}
-        //     ]
     };
   },
   components: {
@@ -63,17 +60,27 @@ export default {
     peopleComponent,
   },
   mounted: function(){
-
-    if(this.$route.params.id){
-      api.get(`http://localhost:3000/api/search/${this.$route.params.id}`).then((res) => {
-        this.peoples = res.data.allPeople
-        })
-      } else {
-        api.get('http://localhost:3000/api/search/people').then((res) => {
-          this.peoples = res.data.allPeople
-        })
+    api.post('http://localhost:3000/api/search/test',{category: '', name :''}).then((res) => {
+      this.peoples = res.data.allPeople
+    })
+  },
+  methods:{
+    category(params){
+        api.post('http://localhost:3000/api/search/test',params).then((res) => {
+          this.peoples = res.data.allPeople;
+        });
+    },
+    price(event){
+      if(event.target.checked){
+        this.peoples.sort((a, b) => a.dailyRate > b.dailyRate ? 1 : -1);
       }
-  }
+    },
+    rating(event){
+      if(event.target.checked){
+        this.peoples.sort((a, b) => a.rating > b.rating ? -1 : 1);
+      }
+    }
+  },
 };
 </script>
 

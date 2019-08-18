@@ -5,7 +5,7 @@
             <div class="main__wrap">
                 <form @submit.prevent="submit" class="form">
                     <h3 class="form__headline">Complete your account</h3>
-                    <input v-validate.continues="{min:6,regex: /[0-9]/}" @input="difficultyСheck($event)" name="password" type="text" class="form__input" placeholder="Create a password" ref="password" v-model="password">
+                    <input v-validate.continues="{min:6,regex: /[0-9]/}" @input="difficultyСheck($event)" name="password" type="password" class="form__input" placeholder="Create a password" ref="password" v-model="password">
                         <span
                         v-for="(error,i) in errors.collect('password')"
                         :key="i"
@@ -26,7 +26,7 @@
                         :class="{'bar__item--good':bar.good}">
                         </div>
                     </div>
-                    <input v-validate="'required|confirmed:password'" name="password_confirmation" type="text" class="form__input" placeholder="Confirm password" >
+                    <input v-validate="'required|confirmed:password'" name="password_confirmation" type="password" class="form__input" placeholder="Confirm password" >
                     <span class="message">{{ errors.first('password_confirmation') }}</span>
                     <div class="checkboxs">
                         <div class="checkbox" :class="{'checkbox--invalid':checked.first}">

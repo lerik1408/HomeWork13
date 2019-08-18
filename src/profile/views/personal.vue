@@ -167,6 +167,7 @@ export default{
             api.put('http://localhost:3000/api/profile/photo',formData)
             .then((res)=>{
                 alert(`You changed the photo to ${res.data.photo}`);
+                this.profile.photo=res.data.photo;
             })
         }
     }

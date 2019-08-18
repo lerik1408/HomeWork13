@@ -7,18 +7,18 @@
                 <option>Пункт 2</option>
             </select>
         </div>
-        <p>{{name}}</p>
         <div class="form__wrap">
             <label for="" class="form__label">Search</label>
-            <input v-model='name' @input="searchName" class="form__input" placeholder="Enter name" name="name" ref="nameInput">
+            <input v-model='itemSearch.name' @change="foundItemforSearch()" class="form__input" placeholder="Enter name" name="name" ref="nameInput">
         </div>
         <div class="form__wrap">
             <label for="" class="form__label">Category</label>
-            <select class="form__select" name="category" @change="searchCategory" formmethod="get">
-                <option value="0">All</option>
+            <select v-model="itemSearch.category" class="form__select" name="category" @change="foundItemforSearch()" formmethod="get">
+                <option value="All">All</option>
                 <option 
                     v-for="category in categorys"
-                    :key="category._id">
+                    :key="category._id"
+                    :value="category._id">
                     {{category.name}}
                     </option>
             </select>
@@ -44,14 +44,24 @@ import api from '../../shared/services/api.axios';
 export default{
     data(){
         return{
-            name: "",
+            itemSearch:{
+                name: '',
+                category: '',
+            },
             categorys: [],
         }
+    },
+    mounted () {
+       api.get('http://localhost:3000/api/search/category').then((res) => {
+            this.categorys = res.data.categorys
+        });
     },
     methods:{
         searchName(){
         },
-        searchCategory(){
+        foundItemforSearch(){
+            // console.log(this.itemSearch)
+            this.$emit('category', this.itemSearch);
         },
         submit(){
             alert('dw')
@@ -62,11 +72,6 @@ export default{
             }
         }
     },
-    mounted () {
-       api.get('http://localhost:3000/api/search/category').then((res) => {
-            this.categorys = res.data.categorys
-        }); 
-    }
 }
 </script>
 

@@ -11,6 +11,7 @@ import messenger from './messenger/views';
 import personal from './profile/views/personal';
 import account from './profile/views/account';
 import search from './search/views/results';
+import profile from './search/views/profile';
 
 const routes = [
   { path: '/sign-in', component: siginIn1 },
@@ -21,7 +22,8 @@ const routes = [
   { path: '/sign-up-2', component: siginUp2},
   { path: '/sign-up-3', component: siginUp3},
   { path: '/search', component: search},
-  { path: '/search/:id', component: search},
+  { path: '/search/profile/:id', component: profile},
+  // { path: '/search/:id', component: search},
   { path: '/messenger',
     component: messenger,
     beforeEnter: function(to, from, next){
