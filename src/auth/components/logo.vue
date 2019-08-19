@@ -1,7 +1,7 @@
 <template>
     <figure class="header__logo">
         <a href="#">
-        <img src="../assets/logo.png" alt="logo" srcset="">
+        <img src="../../assets/img/auth/logo.png" alt="logo" srcset="">
         </a>
     </figure>
 </template>

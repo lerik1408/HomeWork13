@@ -2,8 +2,8 @@
     <div>
         <header-component></header-component>
         <main>
-            <img src="../../assets/MailCheck.svg" alt="circles" class="circles">
-                <img src="../../assets/Group.png" alt="mail" class="mail">
+            <img src="../../../assets/img/auth/MailCheck.svg" alt="circles" class="circles">
+                <img src="../../../assets/img/auth/Group.png" alt="mail" class="mail">
             <div class="wrap">
                 <div class="content">
                     <h2 class="content__headline">You are almost ready to go!</h2>

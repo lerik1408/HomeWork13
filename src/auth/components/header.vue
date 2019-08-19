@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <figure class="header__logo">
-            <img src="../assets/logo.png" alt="logo" srcset="">
+            <img src="../../assets/img/auth/logo.png" alt="logo" srcset="">
         </figure>
         <div class="header__question">
             <p class="header__text">Already have an account?</p>
