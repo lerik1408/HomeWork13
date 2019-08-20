@@ -12,9 +12,9 @@ export default {
   components: {
 
   },
-  mounted:function(){
-    api.init('https://api-my-fixer.herokuapp.com')
-    // api.init('http://localhost:3000')
+  beforeCreate:function(){
+    // api.init('https://api-my-fixer.herokuapp.com')
+    api.init('http://localhost:3000')
   }
 }
 

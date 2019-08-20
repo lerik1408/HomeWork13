@@ -94,7 +94,7 @@ export default{
     },
     mounted(){
         api.setHeader();
-        api.init('https://api-my-fixer.herokuapp.com');
+        // api.init('https://api-my-fixer.herokuapp.com');
         // api.init('http://localhost:3000');
         api.get('/api/profile/person').then((res)=>{
             this.person=res.data.user

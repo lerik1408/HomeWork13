@@ -60,7 +60,7 @@ export default {
     peopleComponent,
   },
   mounted: function(){
-    api.init('https://api-my-fixer.herokuapp.com');
+    // api.init('https://api-my-fixer.herokuapp.com');
     // api.init('http://localhost:3000');
     api.post('/api/search/people',{category: '', name :''}).then((res) => {
       this.peoples = res.data.allPeople
