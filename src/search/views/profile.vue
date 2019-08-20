@@ -57,7 +57,8 @@ export default {
     headerComponent,
   },
   mounted: function(){
-    api.get(`http://localhost:3000/api/search/profile${this. $route.params.id}`).then((res) => {
+    api.init('https://api-my-fixer.herokuapp.com')
+    api.get(`/api/search/profile${this. $route.params.id}`).then((res) => {
     //   this.peoples = res.data.allPeople'
     // console.log(res)
         this.profile = res.data.profile

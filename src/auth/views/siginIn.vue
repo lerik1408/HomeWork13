@@ -67,11 +67,14 @@ export default {
             }
         }
     },
+  mounted(){
+    api.init('https://api-my-fixer.herokuapp.com')
+  },
     methods: {
         login(){
           this.$validator.validate().then(valid => {
             if (valid){
-              api.post('http://localhost:3000/api/auth/sign-in', this.user)
+              api.post('/api/auth/sign-in', this.user)
               .then((res) => {
                 if(!res.data.error){
                   const data = res.data;

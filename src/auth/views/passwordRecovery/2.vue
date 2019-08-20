@@ -41,14 +41,17 @@ export default {
         password: ''
       }
   },
+  mounted(){
+    api.init('https://api-my-fixer.herokuapp.com')
+  },
   methods:{
       submit(){
           this.$validator.validate().then(valid => {
               if(valid){
                 let user = JSON.parse(localStorage.getItem('recovery'));
                 user.password=this.password;
-                api.put('http://localhost:3000/api/auth/password',user).then(()=>{
-                    api.post('http://localhost:3000/api/auth/sign-up',user).then(()=>{
+                api.put('/api/auth/password',user).then(()=>{
+                    api.post('/api/auth/sign-up',user).then(()=>{
                         localStorage.removeItem('recovery');
                         this.$router.push('/password-recovery-3');
                     }).catch((err)=>{

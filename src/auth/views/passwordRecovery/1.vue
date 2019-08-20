@@ -50,11 +50,14 @@ export default {
         }
       }
   },
+  mounted(){
+    api.init('https://api-my-fixer.herokuapp.com')
+  },
   methods:{
     firstStage(){
         this.$validator.validate().then(valid => {
             if(valid){
-            api.post('http://localhost:3000/api/auth/check-email',this.user).then((res) => {
+            api.post('/api/auth/check-email',this.user).then((res) => {
                 if(res.data.people.length===0){
                     alert('Such mail does not exist');
                 }else{

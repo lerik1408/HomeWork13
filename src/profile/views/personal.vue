@@ -94,14 +94,15 @@ export default{
     },
     mounted(){
         api.setHeader();
-        api.get('http://localhost:3000/api/profile/person').then((res)=>{
+        api.init('https://api-my-fixer.herokuapp.com')
+        api.get('/api/profile/person').then((res)=>{
             this.person=res.data.user
         });
     },
     methods:{
         updateName(){
             setTimeout(()=>{
-                api.put('http://localhost:3000/api/profile/person',{ name: this.person.name })
+                api.put('/api/profile/person',{ name: this.person.name })
                 .then((res)=>{
                     alert(`You changed the name to ${res.data.name}`)
                 }).catch((err)=>{
@@ -111,7 +112,7 @@ export default{
         },
         updateSurname(){
             setTimeout(()=>{
-                api.put('http://localhost:3000/api/profile/person',{ surname: this.person.surname })
+                api.put('/api/profile/person',{ surname: this.person.surname })
                 .then((res)=>{
                     alert(`You changed the surname to ${res.data.surname}`)
                 }).catch((err)=>{
@@ -121,7 +122,7 @@ export default{
         },
         updateCompany(){
             setTimeout(()=>{
-                api.put('http://localhost:3000/api/profile/person',{ company: this.person.company })
+                api.put('/api/profile/person',{ company: this.person.company })
                 .then((res)=>{
                     alert(`You changed the company to ${res.data.company}`)
                 }).catch((err)=>{
@@ -131,7 +132,7 @@ export default{
         },
         updateCountry(){
             setTimeout(()=>{
-                api.put('http://localhost:3000/api/profile/person',{ country: this.person.country })
+                api.put('/api/profile/person',{ country: this.person.country })
                 .then((res)=>{
                     alert(`You changed the country to ${res.data.country}`)
                 }).catch((err)=>{
@@ -142,7 +143,7 @@ export default{
         updateMobile(){
             setTimeout(()=>{
                 const mobile = `${this.prefix}${this.person.mobile}`
-                api.put('http://localhost:3000/api/profile/person',{ mobile,})
+                api.put('/api/profile/person',{ mobile,})
                 .then(()=>{
                     alert(`You changed the phone to ${mobile}`)
                 }).catch((err)=>{
@@ -152,7 +153,7 @@ export default{
         },
         updateGender(){
             setTimeout(()=>{
-                api.put('http://localhost:3000/api/profile/person',{ gender: this.person.gender })
+                api.put('/api/profile/person',{ gender: this.person.gender })
                 .then((res)=>{
                     alert(`You changed the gender to ${res.data.gender}`)
                 }).catch((err)=>{
@@ -164,7 +165,7 @@ export default{
             let file = event.target.files[0]
             const formData = new FormData();
             formData.set('photo', file);
-            api.put('http://localhost:3000/api/profile/photo',formData)
+            api.put('/api/profile/photo',formData)
             .then((res)=>{
                 alert(`You changed the photo to ${res.data.photo}`);
                 this.profile.photo=res.data.photo;

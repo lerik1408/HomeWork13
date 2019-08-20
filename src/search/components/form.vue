@@ -52,7 +52,7 @@ export default{
         }
     },
     mounted () {
-       api.get('http://localhost:3000/api/search/category').then((res) => {
+       api.get('https://api-my-fixer.herokuapp.com/api/search/category').then((res) => {
             this.categorys = res.data.categorys
         });
     },

@@ -49,14 +49,15 @@ export default {
   },
   mounted(){
     api.setHeader();
-    api.get('http://localhost:3000/api/profile/person').then((res)=>{
+    api.init('https://api-my-fixer.herokuapp.com')
+    api.get('/api/profile/person').then((res)=>{
       this.person=res.data.user
     });
   },
   methods:{
     updateUserName(){
       setTimeout(()=>{
-        api.put('http://localhost:3000/api/profile/perosn',{
+        api.put('/api/profile/person',{
           username: this.person.username
         }).then((res)=>{
           alert(`You changed the gender to ${res.data.username}`)
@@ -67,7 +68,7 @@ export default {
     },
     updateEmail(){
       setTimeout(()=>{
-        api.put('http://localhost:3000/api/profile/person',{
+        api.put('/api/profile/person',{
           email: this.person.email
         }).then((res)=>{
           alert(`You changed the gender to ${res.data.email}`);

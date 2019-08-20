@@ -60,13 +60,14 @@ export default {
     peopleComponent,
   },
   mounted: function(){
-    api.post('http://localhost:3000/api/search/people',{category: '', name :''}).then((res) => {
+    api.init('https://api-my-fixer.herokuapp.com')
+    api.post('/api/search/people',{category: '', name :''}).then((res) => {
       this.peoples = res.data.allPeople
     })
   },
   methods:{
     category(params){
-        api.post('http://localhost:3000/api/search/people',params).then((res) => {
+        api.post('/api/search/people',params).then((res) => {
           this.peoples = res.data.allPeople;
         });
     },

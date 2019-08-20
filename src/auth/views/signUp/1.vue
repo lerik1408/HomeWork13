@@ -77,13 +77,16 @@ export default {
         }
       }
   },
+  mounted(){
+    api.init('https://api-my-fixer.herokuapp.com')
+  },
   methods:{
     FirstStage(){
         this.$validator.validate().then(valid => {
         if (!valid) {
             this.valide.show = true
         }else{
-            api.post('http://localhost:3000/api/auth/check-email',this.user).then((res) => {
+            api.post('/api/auth/check-email',this.user).then((res) => {
                 if(res.data.people.length===0){
                     localStorage.setItem('registration',JSON.stringify(this.user));
                     this.$router.push('/sign-up-2');

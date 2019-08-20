@@ -86,6 +86,9 @@ export default {
         }
     }
   },
+  mounted(){
+    api.init('https://api-my-fixer.herokuapp.com')
+  },
   methods:{
     difficultyСheck(event){
         this.$validator.validate('password').then(valid => {
@@ -110,7 +113,7 @@ export default {
             if(valid && this.$refs.agreefirst.checked && this.$refs.agreesec.checked){
                 let user = JSON.parse(localStorage.getItem('registration'));
                 user.password=this.password;
-                api.post('http://localhost:3000/api/auth/sign-up', user).then(()=>{
+                api.post('/api/auth/sign-up', user).then(()=>{
                     localStorage.removeItem('registration');
                     this.$router.push('/sign-up-3');
                 }).catch((err) =>{
