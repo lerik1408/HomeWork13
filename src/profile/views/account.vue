@@ -49,7 +49,8 @@ export default {
   },
   mounted(){
     api.setHeader();
-    api.init('https://api-my-fixer.herokuapp.com')
+    api.init('https://api-my-fixer.herokuapp.com');
+    // api.init('http://localhost:3000');
     api.get('/api/profile/person').then((res)=>{
       this.person=res.data.user
     });
@@ -57,9 +58,7 @@ export default {
   methods:{
     updateUserName(){
       setTimeout(()=>{
-        api.put('/api/profile/person',{
-          username: this.person.username
-        }).then((res)=>{
+        api.put('/api/profile/person',this.person).then((res)=>{
           alert(`You changed the gender to ${res.data.username}`)
         }).catch((err)=>{
           alert(err)
@@ -68,9 +67,7 @@ export default {
     },
     updateEmail(){
       setTimeout(()=>{
-        api.put('/api/profile/person',{
-          email: this.person.email
-        }).then((res)=>{
+        api.put('/api/profile/person',this.person).then((res)=>{
           alert(`You changed the gender to ${res.data.email}`);
         }).catch((err)=>{
           alert(`Such a Email already exists + ${err}`);

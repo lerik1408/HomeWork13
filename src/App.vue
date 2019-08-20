@@ -14,6 +14,7 @@ export default {
   },
   mounted:function(){
     api.init('https://api-my-fixer.herokuapp.com')
+    // api.init('http://localhost:3000')
   }
 }
 

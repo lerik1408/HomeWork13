@@ -94,7 +94,8 @@ export default{
     },
     mounted(){
         api.setHeader();
-        api.init('https://api-my-fixer.herokuapp.com')
+        api.init('https://api-my-fixer.herokuapp.com');
+        // api.init('http://localhost:3000');
         api.get('/api/profile/person').then((res)=>{
             this.person=res.data.user
         });
@@ -102,7 +103,7 @@ export default{
     methods:{
         updateName(){
             setTimeout(()=>{
-                api.put('/api/profile/person',{ name: this.person.name })
+                api.put('/api/profile/person', this.person )
                 .then((res)=>{
                     alert(`You changed the name to ${res.data.name}`)
                 }).catch((err)=>{
@@ -112,7 +113,7 @@ export default{
         },
         updateSurname(){
             setTimeout(()=>{
-                api.put('/api/profile/person',{ surname: this.person.surname })
+                api.put('/api/profile/person',this.person)
                 .then((res)=>{
                     alert(`You changed the surname to ${res.data.surname}`)
                 }).catch((err)=>{
@@ -122,7 +123,7 @@ export default{
         },
         updateCompany(){
             setTimeout(()=>{
-                api.put('/api/profile/person',{ company: this.person.company })
+                api.put('/api/profile/person',this.person)
                 .then((res)=>{
                     alert(`You changed the company to ${res.data.company}`)
                 }).catch((err)=>{
@@ -132,7 +133,7 @@ export default{
         },
         updateCountry(){
             setTimeout(()=>{
-                api.put('/api/profile/person',{ country: this.person.country })
+                api.put('/api/profile/person',this.person)
                 .then((res)=>{
                     alert(`You changed the country to ${res.data.country}`)
                 }).catch((err)=>{
@@ -143,7 +144,7 @@ export default{
         updateMobile(){
             setTimeout(()=>{
                 const mobile = `${this.prefix}${this.person.mobile}`
-                api.put('/api/profile/person',{ mobile,})
+                api.put('/api/profile/person',this.person)
                 .then(()=>{
                     alert(`You changed the phone to ${mobile}`)
                 }).catch((err)=>{
@@ -153,7 +154,7 @@ export default{
         },
         updateGender(){
             setTimeout(()=>{
-                api.put('/api/profile/person',{ gender: this.person.gender })
+                api.put('/api/profile/person', this.person)
                 .then((res)=>{
                     alert(`You changed the gender to ${res.data.gender}`)
                 }).catch((err)=>{

@@ -78,7 +78,8 @@ export default {
       }
   },
   mounted(){
-    api.init('https://api-my-fixer.herokuapp.com')
+    api.init('https://api-my-fixer.herokuapp.com');
+    // api.init('http://localhost:3000')
   },
   methods:{
     FirstStage(){
