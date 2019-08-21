@@ -8,11 +8,11 @@
         <form action class="form">
           <div class="form__wrap">
             <label for class="form__label">USERNAME</label>
-            <input @change="updateUserName" v-model="person.username" type="text" class="form__input" />
+            <input @change="updateData" v-model="person.username" type="text" class="form__input" />
           </div>
           <div class="form__wrap">
             <label for class="form__label">E-MAIL</label>
-            <input @change="updateEmail" type="text" class="form__input" v-model="person.email"/>
+            <input @change="updateData" type="text" class="form__input" v-model="person.email"/>
           </div>
         </form>
         <div class="button">
@@ -24,57 +24,48 @@
 </template>
 
 <script>
-import asideComponent from "../../components/aside";
-import headerComponent from "../../components/header";
-import navComponent from "../components/nav";
-import api from "../../shared/services/api.axios"
 import { setTimeout } from 'timers';
+import asideComponent from '../../components/aside';
+import headerComponent from '../../components/header';
+import navComponent from '../components/nav';
+import api from '../../shared/services/api.axios';
 
 export default {
-  name: "personal",
-  data: function() {
+  name: 'personal',
+  data() {
     return {
       active: {
         info: true,
-        account: true
+        account: true,
       },
-      breadcrumbs: [{ id: 1, text: "Home" }, { id: 2, text: "My profile" }],
+      breadcrumbs: [{ id: 1, text: 'Home' }, { id: 2, text: 'My profile' }],
       person: {},
     };
   },
   components: {
     asideComponent,
     headerComponent,
-    navComponent
+    navComponent,
   },
-  mounted(){
+  mounted() {
     api.setHeader();
     // api.init('https://api-my-fixer.herokuapp.com');
     // api.init('http://localhost:3000');
-    api.get('/api/profile/person').then((res)=>{
-      this.person=res.data.user
+    api.get('/api/profile/person').then((res) => {
+      this.person = res.data.user;
     });
   },
-  methods:{
-    updateUserName(){
-      setTimeout(()=>{
-        api.put('/api/profile/person',this.person).then((res)=>{
-          alert(`You changed the gender to ${res.data.username}`)
-        }).catch((err)=>{
-          alert(err)
+  methods: {
+    updateData() {
+      setTimeout(() => {
+        api.put('/api/profile/person', this.person).then((res) => {
+          // alert(`You changed the gender to ${res.data.username}`);
+        }).catch((err) => {
+          alert(err);
         });
-      },2000)
+      }, 2000);
     },
-    updateEmail(){
-      setTimeout(()=>{
-        api.put('/api/profile/person',this.person).then((res)=>{
-          alert(`You changed the gender to ${res.data.email}`);
-        }).catch((err)=>{
-          alert(`Such a Email already exists + ${err}`);
-        });
-      },2000)
-    }
-  }
+  },
 };
 </script>
 
@@ -117,7 +108,7 @@ export default {
     background-color: #fff
     height: 570px
 .form
-    display: flex   
+    display: flex
     margin-left: 61px
     margin-top: 48px
     @include respond_tablet

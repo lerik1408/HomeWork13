@@ -9,8 +9,8 @@
 </template>
 <script>
 export default {
-    // Cheat
-}
+  // Cheat
+};
 </script>
 <style lang="sass">
 // Cheat
@@ -38,4 +38,3 @@ body
         color: $blue
         text-decoration: none
 </style>
-

@@ -7,8 +7,8 @@
 </template>
 <script>
 export default {
-    
-}
+
+};
 </script>
 <style lang="sass" scoped>
 @import '../../shared/style/respond.sass'
@@ -20,5 +20,3 @@ export default {
         margin-left: 0
         margin-bottom: 20px
 </style>
-
-

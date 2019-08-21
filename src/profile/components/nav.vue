@@ -11,9 +11,9 @@
 
 <script>
 export default {
-    props: {
-        active: Object
-    }
+  props: {
+    active: Object,
+  },
 };
 </script>
 

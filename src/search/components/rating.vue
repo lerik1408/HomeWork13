@@ -37,9 +37,9 @@
 
 <script>
 export default {
-    props: {
-        rating: Number
-    }
+  props: {
+    rating: Number,
+  },
 };
 </script>
 

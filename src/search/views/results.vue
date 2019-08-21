@@ -4,16 +4,14 @@
     <header-component v-bind:breadcrumbs="breadcrumbs"></header-component>
     <main class="main">
       <section class="main__wrap">
-        <form-component @category="category"></form-component>
+        <form-component @category="search"></form-component>
         <div class="content">
           <div class="control">
             <p class="control-text">SHOW MAP</p>
-            
               <input type="radio" name="control" id="price" class="control__checkbox" @change="price($event)"/>
               <label for="price" class="control__label">by price</label>
               <input type="radio" name="control" id="rating" class="control__checkbox" @change="rating($event)"/>
               <label for="rating" class="control__label">by rating</label>
-            
           </div>
           <div class="people">
             <people-component
@@ -23,7 +21,6 @@
             ></people-component>
           </div>
           <div class="pagination">
-            
           </div>
         </div>
       </section>
@@ -32,15 +29,15 @@
 </template>
 
 <script>
-import asideComponent from "../../components/aside";
-import headerComponent from "../../components/header";
-import formComponent from "../components/form";
-import peopleComponent from "../components/people";
+import asideComponent from '../../components/aside';
+import headerComponent from '../../components/header';
+import formComponent from '../components/form';
+import peopleComponent from '../components/people';
 import api from '../../shared/services/api.axios';
 
 export default {
   // name: "personal",
-  data: function() {
+  data() {
     return {
       peoples: undefined,
       active: {
@@ -49,7 +46,7 @@ export default {
       breadcrumbs: [
         { id: 1, text: 'Home' },
         { id: 2, text: 'Search' },
-        { id: 3, text: 'Results'},
+        { id: 3, text: 'Results' },
       ],
     };
   },
@@ -59,29 +56,19 @@ export default {
     formComponent,
     peopleComponent,
   },
-  mounted: function(){
+  mounted() {
     // api.init('https://api-my-fixer.herokuapp.com');
     // api.init('http://localhost:3000');
-    api.post('/api/search/people',{category: '', name :''}).then((res) => {
-      this.peoples = res.data.allPeople
-    })
+    api.post('/api/search/people', { category: '', name: '' }).then((res) => {
+      this.peoples = res.data.allPeople;
+    });
   },
-  methods:{
-    category(params){
-        api.post('/api/search/people',params).then((res) => {
-          this.peoples = res.data.allPeople;
-        });
+  methods: {
+    search(params) {
+      api.post('/api/search/people', params).then((res) => {
+        this.peoples = res.data.allPeople;
+      });
     },
-    price(event){
-      if(event.target.checked){
-        this.peoples.sort((a, b) => a.dailyRate > b.dailyRate ? 1 : -1);
-      }
-    },
-    rating(event){
-      if(event.target.checked){
-        this.peoples.sort((a, b) => a.rating > b.rating ? -1 : 1);
-      }
-    }
   },
 };
 </script>
@@ -157,7 +144,7 @@ main
             width: 18px
             height: 18px
             border-radius: 50%
-            
+
     &:checked + label::before
         background: radial-gradient(circle closest-side,$lightGreen  5px, #fff 6px)
 .people

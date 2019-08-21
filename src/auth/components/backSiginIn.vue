@@ -8,8 +8,8 @@
 </template>
 <script>
 export default {
-    
-}
+
+};
 </script>
 <style lang="sass" scoped>
 @import '../../shared/style/respond.sass'

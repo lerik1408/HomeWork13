@@ -57,7 +57,7 @@
 </template>
 <script>
 import HeaderComponent from '../../components/header.vue';
-import api from '@/shared/services/api.axios'
+import api from '@/shared/services/api.axios';
 
 export default {
   name: 'SignUp-1',
@@ -65,44 +65,43 @@ export default {
     HeaderComponent,
   },
   data() {
-      return{
-        user:{
-            name:'',
-            surname:'',
-            username:'',
-            email:'',
-        },
-        valide:{
-            show: false,
-        }
-      }
+    return {
+      user: {
+        name: '',
+        surname: '',
+        username: '',
+        email: '',
+      },
+      valide: {
+        show: false,
+      },
+    };
   },
-  mounted(){
+  mounted() {
     // api.init('https://api-my-fixer.herokuapp.com');
     // api.init('http://localhost:3000')
   },
-  methods:{
-    FirstStage(){
-        this.$validator.validate().then(valid => {
+  methods: {
+    FirstStage() {
+      this.$validator.validate().then((valid) => {
         if (!valid) {
-            this.valide.show = true
-        }else{
-            api.post('/api/auth/check-email',this.user).then((res) => {
-                if(res.data.people.length===0){
-                    localStorage.setItem('registration',JSON.stringify(this.user));
-                    this.$router.push('/sign-up-2');
-                }else{
-                    alert('This mail is busy')
-                }
-            }).catch((err) => {
-                alert(err);
-            });
+          this.valide.show = true;
+        } else {
+          api.post('/api/auth/check-email', this.user).then((res) => {
+            if (res.data.people.length === 0) {
+              localStorage.setItem('registration', JSON.stringify(this.user));
+              this.$router.push('/sign-up-2');
+            } else {
+              alert('This mail is busy');
+            }
+          }).catch((err) => {
+            alert(err);
+          });
         }
       });
- 
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="sass" scoped>
 @import '../../../shared/style/base.sass'
@@ -177,10 +176,8 @@ export default {
             margin-right: 5%
 .message
   display: none
-  margin-bottom: 10px 
+  margin-bottom: 10px
 .message--novalid
   color: tomato
   display: block
 </style>
-
-

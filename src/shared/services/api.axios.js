@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 // axios.defaults.headers.post["Content-Type"] = "application/json"
 
@@ -6,32 +6,32 @@ const ApiService = {
   init(baseURL) {
     axios.defaults.baseURL = baseURL;
   },
-  getToken(){
-    let user = JSON.parse(localStorage.getItem('user'));
+  getToken() {
+    const user = JSON.parse(localStorage.getItem('user'));
     return user.token;
   },
   setHeader() {
-    axios.defaults.headers.common["Authorization"] = `JWT ${this.getToken()}`
+    axios.defaults.headers.common.Authorization = `JWT ${this.getToken()}`;
   },
 
   removeHeader() {
-    axios.defaults.headers.common = {}
+    axios.defaults.headers.common = {};
   },
 
   get(resource) {
-    return axios.get(resource)
+    return axios.get(resource);
   },
 
   post(resource, data, config) {
-    return axios.post(resource, data, config)
+    return axios.post(resource, data, config);
   },
 
   put(resource, data) {
-    return axios.put(resource, data)
+    return axios.put(resource, data);
   },
 
   delete(resource) {
-    return axios.delete(resource)
+    return axios.delete(resource);
   },
 
   /**
@@ -44,10 +44,10 @@ const ApiService = {
    *  - auth (optional)
    *    - username
    *    - password
-   **/
+   * */
   customRequest(data) {
-    return axios(data)
-  }
-}
+    return axios(data);
+  },
+};
 
-export default ApiService
+export default ApiService;

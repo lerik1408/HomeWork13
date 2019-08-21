@@ -36,36 +36,36 @@ export default {
     LogoComponent,
     QuestionComponent,
   },
-  data(){
-      return{
-        password: ''
-      }
+  data() {
+    return {
+      password: '',
+    };
   },
-  mounted(){
+  mounted() {
     // api.init('https://api-my-fixer.herokuapp.com');
     // api.init('http://localhost:3000')
   },
-  methods:{
-      submit(){
-          this.$validator.validate().then(valid => {
-              if(valid){
-                let user = JSON.parse(localStorage.getItem('recovery'));
-                user.password=this.password;
-                api.put('/api/auth/password',user).then(()=>{
-                    api.post('/api/auth/sign-up',user).then(()=>{
-                        localStorage.removeItem('recovery');
-                        this.$router.push('/password-recovery-3');
-                    }).catch((err)=>{
-                        alert(err);
-                    });
-                }).catch((err)=>{
-                    alert(err)
-                })
-              }
+  methods: {
+    submit() {
+      this.$validator.validate().then((valid) => {
+        if (valid) {
+          const user = JSON.parse(localStorage.getItem('recovery'));
+          user.password = this.password;
+          api.put('/api/auth/password', user).then(() => {
+            api.post('/api/auth/sign-up', user).then(() => {
+              localStorage.removeItem('recovery');
+              this.$router.push('/password-recovery-3');
+            }).catch((err) => {
+              alert(err);
+            });
+          }).catch((err) => {
+            alert(err);
           });
-      }
-  }
-}
+        }
+      });
+    },
+  },
+};
 </script>
 <style lang="sass" scoped>
 @import '../../../shared/style/base.sass'
@@ -140,5 +140,3 @@ export default {
     color: tomato
     margin-bottom: 10px
 </style>
-
-

@@ -33,13 +33,13 @@
 </template>
 
 <script>
-import asideComponent from "../../components/aside";
-import headerComponent from "../../components/header";
+import asideComponent from '../../components/aside';
+import headerComponent from '../../components/header';
 import api from '../../shared/services/api.axios';
 
 export default {
   // name: "personal",
-  data: function() {
+  data() {
     return {
       active: {
         search: true,
@@ -48,7 +48,7 @@ export default {
       breadcrumbs: [
         { id: 1, text: 'Home' },
         { id: 2, text: 'Search' },
-        { id: 3, text: 'Results'},
+        { id: 3, text: 'Results' },
       ],
     };
   },
@@ -56,17 +56,17 @@ export default {
     asideComponent,
     headerComponent,
   },
-  mounted: function(){
+  mounted() {
     // api.init('https://api-my-fixer.herokuapp.com');
     // api.init('http://localhost:3000');
-    api.get(`/api/search/profile${this. $route.params.id}`).then((res) => {
+    api.get(`/api/search/profile${this.$route.params.id}`).then((res) => {
     //   this.peoples = res.data.allPeople'
     // console.log(res)
-        this.profile = res.data.profile
-    })
+      this.profile = res.data.profile;
+    });
   },
 
-//   methods:{
+  //   methods:{
 
 //   }
 };

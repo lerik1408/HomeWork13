@@ -16,7 +16,7 @@
                 placeholder="E-mail"
                 ref="emailInput"
         />
-        <span 
+        <span
           ref="message"
           class="message"
           :class="{'message--novalid': valide.show}"
@@ -49,7 +49,7 @@
 <script>
 import LogoComponent from '../components/logo.vue';
 import QuestionComponent from '../components/queNoHave.vue';
-import api from '../../shared/services/api.axios'
+import api from '../../shared/services/api.axios';
 
 export default {
   name: 'app',
@@ -57,53 +57,52 @@ export default {
     LogoComponent,
     QuestionComponent,
   },
-      data: function (){
-        return{
-            user:{email: "", password: ""},
-            valide:{
-              show: false,
-              // email: true,
-              // password: true,
-            }
-        }
-    },
-  mounted(){
+  data() {
+    return {
+      user: { email: '', password: '' },
+      valide: {
+        show: false,
+        // email: true,
+        // password: true,
+      },
+    };
+  },
+  mounted() {
     // api.init('https://api-my-fixer.herokuapp.com');
     // api.init('http://localhost:3000');
   },
-    methods: {
-        login(){
-          this.$validator.validate().then(valid => {
-            if (valid){
-              api.post('/api/auth/sign-in', this.user)
-              .then((res) => {
-                if(!res.data.error){
-                  const data = res.data;
-                  this.saveUser({
-                    token: data.token,
-                    user: data.user,
-                  }); 
-                }else{
-                  alert(res.data.error)
-                }
-              })
-              .catch((err)=>{
-                alert(`Form not submitted + ${err}`)
-              })
-            }
-            else{
-              this.$refs.emailInput.focus()
-              this.valide.show = true
-            }
-          });
-        },
-        saveUser(user){
-            localStorage.setItem('user',JSON.stringify(user));
-            api.setHeader();
-            this.$router.push('/profile/personal');
+  methods: {
+    login() {
+      this.$validator.validate().then((valid) => {
+        if (valid) {
+          api.post('/api/auth/sign-in', this.user)
+            .then((res) => {
+              if (!res.data.error) {
+                const { data } = res;
+                this.saveUser({
+                  token: data.token,
+                  user: data.user,
+                });
+              } else {
+                alert(res.data.error);
+              }
+            })
+            .catch((err) => {
+              alert(`Form not submitted + ${err}`);
+            });
+        } else {
+          this.$refs.emailInput.focus();
+          this.valide.show = true;
         }
-    }
-}
+      });
+    },
+    saveUser(user) {
+      localStorage.setItem('user', JSON.stringify(user));
+      api.setHeader();
+      this.$router.push('/profile/personal');
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>
@@ -188,7 +187,7 @@ export default {
     align-self: center
 .message
   display: none
-  margin-bottom: 10px 
+  margin-bottom: 10px
 .message--novalid
   color: red
   display: block

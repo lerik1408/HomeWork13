@@ -15,56 +15,59 @@ import profile from './search/views/profile';
 
 const routes = [
   { path: '/sign-in', component: siginIn1 },
-  { path: '/password-recovery-1', component: passwordRecovery1},
-  { path: '/password-recovery-2', component: passwordRecovery2},
-  { path: '/password-recovery-3', component: passwordRecovery3},
-  { path: '/sign-up-1', component: siginUp1},
-  { path: '/sign-up-2', component: siginUp2},
-  { path: '/sign-up-3', component: siginUp3},
-  { path: '/search', component: search},
-  { path: '/search/profile/:id', component: profile},
+  { path: '/password-recovery-1', component: passwordRecovery1 },
+  { path: '/password-recovery-2', component: passwordRecovery2 },
+  { path: '/password-recovery-3', component: passwordRecovery3 },
+  { path: '/sign-up-1', component: siginUp1 },
+  { path: '/sign-up-2', component: siginUp2 },
+  { path: '/sign-up-3', component: siginUp3 },
+  { path: '/search', component: search },
+  { path: '/search/profile/:id', component: profile },
   // { path: '/search/:id', component: search},
-  { path: '/messenger',
+  {
+    path: '/messenger',
     component: messenger,
-    beforeEnter: function(to, from, next){
-      if(localStorage.getItem('user')){
-        next()
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem('user')) {
+        next();
       } else {
         next({
-          path: '/sign-in'
-        })
+          path: '/sign-in',
+        });
       }
-    }
+    },
   },
-  { path: '/profile/personal',
+  {
+    path: '/profile/personal',
     component: personal,
-    beforeEnter: function(to, from, next){
-      if(localStorage.getItem('user')){
-        next()
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem('user')) {
+        next();
       } else {
         next({
-          path: '/sign-in'
-        })
+          path: '/sign-in',
+        });
       }
-    }
+    },
   },
-  { path: '/profile/account',
+  {
+    path: '/profile/account',
     component: account,
-    beforeEnter: function(to, from, next){
-      if(localStorage.getItem('user')){
-        next()
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem('user')) {
+        next();
       } else {
         next({
-          path: '/sign-in'
-        })
+          path: '/sign-in',
+        });
       }
-    }
+    },
   },
-]
+];
 
 const router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
 });
 
 export default router;

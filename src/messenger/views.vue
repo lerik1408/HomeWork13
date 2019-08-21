@@ -67,42 +67,42 @@ import asideComponent from '../components/aside';
 import headerComponent from '../components/header';
 
 
-export default{
-    name: 'messenger',
-    data: function () {
-        return{
-            active: {
-                messenger: true,
-            },
-            breadcrumbs: [
-                {id: 1,text: 'Home'},
-                {id: 2,text: 'Network'}
-            ],
-            users: [
-                {
-                name: 'Miranda Hops', status: 'Excepteur sint occaecatar…', time: '9:32', img: '../messenger/fr1.png', mute: true,
-                }, {
-                name: 'Barry Callebaut', status: 'Nemo enim ipsam volupta…', time: '22:01', img: '../messenger/fr2.png',
-                }, {
-                name: 'Stacey Dosh', status: 'Ut enim ad minima veniam…', time: '19:15', img: '../messenger/fr3.png', active: true,
-                }, {
-                name: 'Michael Kors', status: 'To take a trivial example…', time: '13:49', img: '../messenger/fr4.png',
-                }, {
-                name: 'Johny Cash', status: 'Great explorer of the truth…', time: '10:25', img: '../messenger/fr5.png',
-                }, {
-                name: 'Stacey Dosh', status: 'Ut enim ad minima veniam…', time: '9:32', img: '../messenger/fr6.png',
-                }
-            ],
-            messages: [
-                {img: '../messenger/fr3.png', text: 'On the other hand, we denounce with righteous indignation!', time: '01:14' },{ text: 'Which is the same as saying?', time: '01:38' }, { img: '../messenger/fr3.png', text: 'But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures', time: '02:05' },{ text: 'To take a trivial example, which of us ever undertakes)', time: '03:25' },{ img: '../messenger/fr3.png', text: 'But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures', time: '02:05' },{ text: 'To take a trivial example, which of us ever undertakes)', time: '03:25' },
-            ],
-        }
-    },
-    components: {
-        asideComponent,
-        headerComponent,
-    }
-}
+export default {
+  name: 'messenger',
+  data() {
+    return {
+      active: {
+        messenger: true,
+      },
+      breadcrumbs: [
+        { id: 1, text: 'Home' },
+        { id: 2, text: 'Network' },
+      ],
+      users: [
+        {
+          name: 'Miranda Hops', status: 'Excepteur sint occaecatar…', time: '9:32', img: '../messenger/fr1.png', mute: true,
+        }, {
+          name: 'Barry Callebaut', status: 'Nemo enim ipsam volupta…', time: '22:01', img: '../messenger/fr2.png',
+        }, {
+          name: 'Stacey Dosh', status: 'Ut enim ad minima veniam…', time: '19:15', img: '../messenger/fr3.png', active: true,
+        }, {
+          name: 'Michael Kors', status: 'To take a trivial example…', time: '13:49', img: '../messenger/fr4.png',
+        }, {
+          name: 'Johny Cash', status: 'Great explorer of the truth…', time: '10:25', img: '../messenger/fr5.png',
+        }, {
+          name: 'Stacey Dosh', status: 'Ut enim ad minima veniam…', time: '9:32', img: '../messenger/fr6.png',
+        },
+      ],
+      messages: [
+        { img: '../messenger/fr3.png', text: 'On the other hand, we denounce with righteous indignation!', time: '01:14' }, { text: 'Which is the same as saying?', time: '01:38' }, { img: '../messenger/fr3.png', text: 'But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures', time: '02:05' }, { text: 'To take a trivial example, which of us ever undertakes)', time: '03:25' }, { img: '../messenger/fr3.png', text: 'But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures', time: '02:05' }, { text: 'To take a trivial example, which of us ever undertakes)', time: '03:25' },
+      ],
+    };
+  },
+  components: {
+    asideComponent,
+    headerComponent,
+  },
+};
 </script>
 
 <style lang="sass" scoped>
@@ -144,7 +144,7 @@ main
   @include respond_tablet
     width: auto
     padding-left: 0
-  
+
 .friend-active
   box-shadow: 0 5px 5px rgba(190, 200, 212, 0.2), 0 -5px 5px rgba(224, 224, 224, 0.15)
 .friend__content-wrap
@@ -308,7 +308,7 @@ main
       box-shadow: 0 0 58px -2px rgba(0, 0, 0, 0.75)
   margin-left: 2%
   cursor: pointer
-  
+
 .chat__mails
   &::-webkit-scrollbar
     width: 8px

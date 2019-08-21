@@ -15,14 +15,14 @@
                         {{error}}
                         </span>
                     <div class="bar">
-                        <div class="bar__item" 
+                        <div class="bar__item"
                         :class="{'bar__item--low':bar.low, 'bar__item--normal':bar.normal,'bar__item--good':bar.good}">
 
                         </div>
                         <div class="bar__item"
                         :class="{'bar__item--normal':bar.normal,'bar__item--good':bar.good}">
                         </div>
-                        <div class="bar__item" 
+                        <div class="bar__item"
                         :class="{'bar__item--good':bar.good}">
                         </div>
                     </div>
@@ -46,7 +46,7 @@
 </template>
 <script>
 import HeaderComponent from '../../components/header.vue';
-import api from '@/shared/services/api.axios'
+import api from '@/shared/services/api.axios';
 
 
 export default {
@@ -54,80 +54,80 @@ export default {
   components: {
     HeaderComponent,
   },
-  data(){
-    return{
-        checked:{
-            first: false,
-            second: false
+  data() {
+    return {
+      checked: {
+        first: false,
+        second: false,
+      },
+      password: '',
+      bar: {
+        low: false,
+        normal: false,
+        good: false,
+        count: 0,
+        setCount() {
+          // debugger
+          if (this.count == 1) {
+            this.low = true;
+            this.normal = false;
+            this.good = false;
+          } else if (this.count == 2) {
+            this.normal = true;
+            this.good = false;
+          } else if (this.count == 3) {
+            this.good = true;
+          } else {
+            this.low = false;
+            this.normal = false;
+            this.good = false;
+          }
         },
-        password: '',
-        bar:{
-            low: false,
-            normal: false,
-            good: false,
-            count: 0,
-            setCount(){
-                // debugger
-                if (this.count==1){
-                    this.low = true;
-                    this.normal = false;
-                    this.good = false;
-                }else if (this.count==2){
-                    this.normal = true;
-                    this.good = false;
-                }else if(this.count==3){
-                    this.good = true;
-                }else{
-                    this.low = false;
-                    this.normal = false;
-                    this.good = false;
-                }
-            }
-        }
-    }
+      },
+    };
   },
-  mounted(){
+  mounted() {
     // api.init('https://api-my-fixer.herokuapp.com');
     // api.init('http://localhost:3000')
   },
-  methods:{
-    difficultyСheck(event){
-        this.$validator.validate('password').then(valid => {
-            if(valid){
-                this.bar.count+=1;
-                if(event.target.value.length>10){
-                    this.bar.count+=1;
-                }
-                if(/([A-Z])/.test(event.target.value)){
-                    this.bar.count+=1;
-                }
-                this.bar.setCount()
-                this.bar.count=0
-            }else{
-                this.bar.setCount()
-                this.bar.count=0
-            }
-        })
+  methods: {
+    difficultyСheck(event) {
+      this.$validator.validate('password').then((valid) => {
+        if (valid) {
+          this.bar.count += 1;
+          if (event.target.value.length > 10) {
+            this.bar.count += 1;
+          }
+          if (/([A-Z])/.test(event.target.value)) {
+            this.bar.count += 1;
+          }
+          this.bar.setCount();
+          this.bar.count = 0;
+        } else {
+          this.bar.setCount();
+          this.bar.count = 0;
+        }
+      });
     },
-    submit(){
-        this.$validator.validate().then(valid => {
-            if(valid && this.$refs.agreefirst.checked && this.$refs.agreesec.checked){
-                let user = JSON.parse(localStorage.getItem('registration'));
-                user.password=this.password;
-                api.post('/api/auth/sign-up', user).then(()=>{
-                    localStorage.removeItem('registration');
-                    this.$router.push('/sign-up-3');
-                }).catch((err) =>{
-                    alert(err);
-                });
-            }else{
-                this.checked.first=!this.$refs.agreefirst.checked;
-                this.checked.second=!this.$refs.agreesec.checked;
-            }
-        })
-    }
-  }
-}
+    submit() {
+      this.$validator.validate().then((valid) => {
+        if (valid && this.$refs.agreefirst.checked && this.$refs.agreesec.checked) {
+          const user = JSON.parse(localStorage.getItem('registration'));
+          user.password = this.password;
+          api.post('/api/auth/sign-up', user).then(() => {
+            localStorage.removeItem('registration');
+            this.$router.push('/sign-up-3');
+          }).catch((err) => {
+            alert(err);
+          });
+        } else {
+          this.checked.first = !this.$refs.agreefirst.checked;
+          this.checked.second = !this.$refs.agreesec.checked;
+        }
+      });
+    },
+  },
+};
 </script>
 <style lang="sass" scoped>
 @import '../../../shared/style/base.sass'
@@ -228,24 +228,24 @@ export default {
     border-bottom: 2px solid $lightGreen
     transform: rotate(-45deg)
 
-.checkbox label 
+.checkbox label
     position: relative
 .checkbox label::before,
-.checkbox label::after 
+.checkbox label::after
     position: absolute
-.checkbox label::before 
+.checkbox label::before
     left: -20px
-.checkbox label::after 
+.checkbox label::after
     left: -17px
     top: 5px
 
-.checkbox input[type="checkbox"] + label::after 
+.checkbox input[type="checkbox"] + label::after
     content: none
 
-.checkbox input[type="checkbox"]:checked + label::after 
+.checkbox input[type="checkbox"]:checked + label::after
     content: ""
     background-color: rgba(245, 247, 250, 0.5)
-.checkbox input[type="checkbox"]:focus + label::before 
+.checkbox input[type="checkbox"]:focus + label::before
     outline: rgb(59, 153, 252) auto 5px
 
 .form__input
@@ -277,5 +277,3 @@ export default {
     color: tomato
     margin-bottom: 10px
 </style>
-
-

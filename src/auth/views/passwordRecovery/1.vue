@@ -26,13 +26,13 @@
               </form>
           </div>
         </main>
-    
+
     </div>
 </template>
 <script>
 import LogoComponent from '../../components/logo.vue';
 import QuestionComponent from '../../components/backSiginIn.vue';
-import api from '../../../shared/services/api.axios'
+import api from '../../../shared/services/api.axios';
 
 export default {
   name: 'password1',
@@ -40,42 +40,42 @@ export default {
     LogoComponent,
     QuestionComponent,
   },
-  data(){
-      return{
-        user:{
-          email: '',
-        },
-        valide:{
-          show: false,
-        }
-      }
+  data() {
+    return {
+      user: {
+        email: '',
+      },
+      valide: {
+        show: false,
+      },
+    };
   },
-  mounted(){
+  mounted() {
     // api.init('https://api-my-fixer.herokuapp.com');
     // api.init('http://localhost:3000');
   },
-  methods:{
-    firstStage(){
-        this.$validator.validate().then(valid => {
-            if(valid){
-            api.post('/api/auth/check-email',this.user).then((res) => {
-                if(res.data.people.length===0){
-                    alert('Such mail does not exist');
-                }else{
-                    localStorage.setItem('recovery',JSON.stringify(res.data.people[0]));
-                    this.$router.push('/password-recovery-2');
-                }
-                }).catch((err) => {
-                    alert(err);
-                });
-            }else{
-                this.valide.show=true
-                this.$refs.input.focus()
+  methods: {
+    firstStage() {
+      this.$validator.validate().then((valid) => {
+        if (valid) {
+          api.post('/api/auth/check-email', this.user).then((res) => {
+            if (res.data.people.length === 0) {
+              alert('Such mail does not exist');
+            } else {
+              localStorage.setItem('recovery', JSON.stringify(res.data.people[0]));
+              this.$router.push('/password-recovery-2');
             }
-        });
-    }
-  }
-}
+          }).catch((err) => {
+            alert(err);
+          });
+        } else {
+          this.valide.show = true;
+          this.$refs.input.focus();
+        }
+      });
+    },
+  },
+};
 </script>
 <style lang="sass" scoped>
 @import '../../../shared/style/base.sass'
@@ -152,10 +152,8 @@ export default {
         align-self: center
 .message
   display: none
-  margin-bottom: 10px 
+  margin-bottom: 10px
 .message--novalid
   color: tomato
   display: block
 </style>
-
-

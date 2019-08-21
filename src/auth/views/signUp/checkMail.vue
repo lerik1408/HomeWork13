@@ -21,9 +21,9 @@ import HeaderComponent from '../../components/header.vue';
 export default {
   name: 'checkMail',
   components: {
-      HeaderComponent,
-  }
-}
+    HeaderComponent,
+  },
+};
 </script>
 <style lang="sass" scoped>
 @import '../../../shared/style/base.sass'
@@ -73,7 +73,7 @@ body
     font-family: $eho
     font-size: 50px
     font-weight: 600
-    line-height: 60px 
+    line-height: 60px
     display: inline
     @include respond_tablet
         font-size: 34px
@@ -86,5 +86,3 @@ body
     @include respond_tablet
         padding-left: 0%
 </style>
-
-

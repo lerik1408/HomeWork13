@@ -16,7 +16,7 @@
             </svg>
         </div>
     </section>
-    <section 
+    <section
       class="user__menu"
       :class="{'user__menu--active':menuFlag}"
       ref="menu">
@@ -29,41 +29,41 @@
 </template>
 
 <script>
-export default{
-    data(){
-      return{
-        menuFlag: false
-      }
+export default {
+  data() {
+    return {
+      menuFlag: false,
+    };
+  },
+  props: {
+    breadcrumbs: Array,
+  },
+  computed: {
+    count() {
+      return this.$store.state.count;
     },
-    props: {
-        breadcrumbs: Array
+    s() {
+      return this.$store.state.flag;
     },
-    computed: {
-      count (){
-        return this.$store.state.count
-      },
-      s () {
-        return this.$store.state.flag
-      }
+  },
+  methods: {
+    update() {
+      this.$store.commit('increment', {
+        number: 10,
+      });
     },
-    methods: {
-      update(){
-        this.$store.commit('increment', {
-          number: 10
-        });
-      },
-      show(){
-        this.$store.commit('show');
-      },
-      showMenu(){
-        this.menuFlag=!this.menuFlag
-      },
-      logout(){
-        localStorage.removeItem('user');
-        this.$router.push('/sign-in')
-      }
+    show() {
+      this.$store.commit('show');
     },
-}
+    showMenu() {
+      this.menuFlag = !this.menuFlag;
+    },
+    logout() {
+      localStorage.removeItem('user');
+      this.$router.push('/sign-in');
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>

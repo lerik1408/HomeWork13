@@ -27,16 +27,17 @@
 </template>
 
 <script>
-import componentRating from './rating'
-export default{
-    props: {
-        inp: String,
-        people: Object,
-    },
-    components: {
-        componentRating,
-    }
-}
+import componentRating from './rating';
+
+export default {
+  props: {
+    inp: String,
+    people: Object,
+  },
+  components: {
+    componentRating,
+  },
+};
 </script>
 
 <style lang="sass" scoped>
@@ -65,7 +66,7 @@ export default{
         &:nth-child(2n)
             margin-left: 0px
 .people__img
-    margin-left: 30px
+    margin-left: 20px
     width: 76px
     height: 76px
     border-radius: 50%
@@ -73,7 +74,7 @@ export default{
         margin-left: 0
 .people__content
     width: 100%
-    margin-left: 16px
+    margin-left: 30px
 .people__headline
     display: flex
     align-items: center

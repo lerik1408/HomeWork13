@@ -45,19 +45,19 @@
     </nav>
 </aside>
 </template>
-    
+
 <script>
-export default{
+export default {
   name: 'aside1',
   props: {
-    active: Object
+    active: Object,
   },
-  computed:{
-    s () {
-      return this.$store.state.flag
-    }
-  }
-}
+  computed: {
+    s() {
+      return this.$store.state.flag;
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>

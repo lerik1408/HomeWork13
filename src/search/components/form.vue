@@ -15,7 +15,7 @@
             <label for="" class="form__label">Category</label>
             <select v-model="itemSearch.category" class="form__select" name="category" @change="foundItemforSearch()" formmethod="get">
                 <option value="All">All</option>
-                <option 
+                <option
                     v-for="category in categorys"
                     :key="category._id"
                     :value="category._id">
@@ -41,40 +41,41 @@
 
 <script>
 import api from '../../shared/services/api.axios';
-export default{
-    data(){
-        return{
-            itemSearch:{
-                name: '',
-                category: '',
-            },
-            categorys: [],
-        }
+
+export default {
+  data() {
+    return {
+      itemSearch: {
+        name: '',
+        category: '',
+      },
+      categorys: [],
+    };
+  },
+  mounted() {
+    // api.init('https://api-my-fixer.herokuapp.com');
+    // api.init('http://localhost:3000');
+    api.get('/api/search/category').then((res) => {
+      this.categorys = res.data.categorys;
+    });
+  },
+  methods: {
+    searchName() {
     },
-    mounted () {
-        // api.init('https://api-my-fixer.herokuapp.com');
-        // api.init('http://localhost:3000');
-        api.get('/api/search/category').then((res) => {
-            this.categorys = res.data.categorys
-        });
+    foundItemforSearch() {
+      // console.log(this.itemSearch)
+      this.$emit('category', this.itemSearch);
     },
-    methods:{
-        searchName(){
-        },
-        foundItemforSearch(){
-            // console.log(this.itemSearch)
-            this.$emit('category', this.itemSearch);
-        },
-        submit(){
-            alert('dw')
-            if(this.$refs.nameInput.value){
-                alert('dw')
-            }else{
-                this.$refs.nameInput.setAttribute("disable")
-            }
-        }
+    submit() {
+      alert('dw');
+      if (this.$refs.nameInput.value) {
+        alert('dw');
+      } else {
+        this.$refs.nameInput.setAttribute('disable');
+      }
     },
-}
+  },
+};
 </script>
 
 <style lang="sass" scoped>

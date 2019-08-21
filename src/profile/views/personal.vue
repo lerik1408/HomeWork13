@@ -20,17 +20,17 @@
                     <div class="form__wrap">
                         <label for="" class="form__label">First name
                         </label>
-                        <input @change="updateName" type="text" id="name" class="form__input" v-model="person.name">
+                        <input @input="updateData($event)" type="text" id="name" class="form__input" v-model="person.name">
                     </div>
                     <div class="form__wrap">
                         <label for="surname" class="form__label">Last name
                         </label>
-                        <input @change="updateSurname" type="text" id="surname" class="form__input" v-model="person.surname">
+                        <input @change="updateData" type="text" id="surname" class="form__input" v-model="person.surname">
                     </div>
                     <div class="form__wrap">
                         <label for="" class="form__label">Title
                         </label>
-                        <select @change="updateGender" class="form__select" v-model="person.gender">
+                        <select @change="updateData" class="form__select" v-model="person.gender">
                             <option :selected="person.gender=='Mr'">Mr</option>
                             <option :selected="person.gender=='undefined?'">undefined?</option>
                             <option :selected="person.gender=='Ms'">Ms</option>
@@ -44,19 +44,19 @@
                             <option selected >+380</option>
                             <option>+044</option>
                         </select>
-                        <input @change="updateMobile" type="text" class="form__input form__input--phone" v-model="person.mobile">
+                        <input @change="updateData" type="text" class="form__input form__input--phone" v-model="person.mobile">
                         </div>
                     </div>
                     <div class="form__wrap">
                         <label for="" class="form__label">Country</label>
-                        <select @change="updateCountry" class="form__select form__select--country" v-model="person.country">
+                        <select @change="updateData" class="form__select form__select--country" v-model="person.country">
                             <option :selected="person.country=='Ukrain'">Ukraine</option>
                             <option :selected="person.country=='Poland'">Poland</option>
                         </select>
                     </div>
                     <div class="form__wrap">
                         <label for="" class="form__label">Company</label>
-                        <input @change="updateCompany" type="text" id="company" class="form__input" v-model="person.company">
+                        <input @change="updateData" type="text" id="company" class="form__input" v-model="person.company">
                     </div>
                 </form>
             </section>
@@ -68,112 +68,112 @@
 <script>
 import asideComponent from '../../components/aside';
 import headerComponent from '../../components/header';
-import navComponent from '../components/nav'
-import api from '../../shared/services/api.axios'
+import navComponent from '../components/nav';
+import api from '../../shared/services/api.axios';
 
-export default{
-    name: 'personal',
-    data: function () {
-        return {
-            active: {
-                info: true,
-                person: true
-            },
-            breadcrumbs: [
-                {id: 1,text: 'Home'},
-                {id: 2,text: 'My profile'},
-            ],
-            person: {},
-            prefix: '',
-        }
+export default {
+  name: 'personal',
+  data() {
+    return {
+      active: {
+        info: true,
+        person: true,
+      },
+      breadcrumbs: [
+        { id: 1, text: 'Home' },
+        { id: 2, text: 'My profile' },
+      ],
+      person: {},
+      prefix: '',
+    };
+  },
+  components: {
+    asideComponent,
+    headerComponent,
+    navComponent,
+  },
+  mounted() {
+    api.setHeader();
+    // api.init('https://api-my-fixer.herokuapp.com');
+    // api.init('http://localhost:3000');
+    api.get('/api/profile/person').then((res) => {
+      this.person = res.data.user;
+    });
+  },
+  methods: {
+    updateData(event) {
+      let timer = setTimeout(() => {
+        api.put('/api/profile/person', this.person)
+          .then((res) => {
+            alert(`profile changed`);
+          }).catch((err) => {
+            alert(err);
+          });
+      }, 1000);
     },
-    components: {
-        asideComponent,
-        headerComponent,
-        navComponent,
+    // updateSurname() {
+    //   setTimeout(() => {
+    //     api.put('/api/profile/person', this.person)
+    //       .then((res) => {
+    //         alert(`You changed the surname to ${res.data.surname}`);
+    //       }).catch((err) => {
+    //         alert(err);
+    //       });
+    //   }, 2000);
+    // },
+    // updateCompany() {
+    //   setTimeout(() => {
+    //     api.put('/api/profile/person', this.person)
+    //       .then((res) => {
+    //         alert(`You changed the company to ${res.data.company}`);
+    //       }).catch((err) => {
+    //         alert(err);
+    //       });
+    //   }, 2000);
+    // },
+    // updateCountry() {
+    //   setTimeout(() => {
+    //     api.put('/api/profile/person', this.person)
+    //       .then((res) => {
+    //         alert(`You changed the country to ${res.data.country}`);
+    //       }).catch((err) => {
+    //         alert(err);
+    //       });
+    //   }, 2000);
+    // },
+    updateMobile() {
+      setTimeout(() => {
+        const mobile = `${this.prefix}${this.person.mobile}`;
+        api.put('/api/profile/person', this.person)
+          .then(() => {
+            alert(`You changed the phone to ${mobile}`);
+          }).catch((err) => {
+            alert(err);
+          });
+      }, 2000);
     },
-    mounted(){
-        api.setHeader();
-        // api.init('https://api-my-fixer.herokuapp.com');
-        // api.init('http://localhost:3000');
-        api.get('/api/profile/person').then((res)=>{
-            this.person=res.data.user
+    // updateGender() {
+    //   setTimeout(() => {
+    //     api.put('/api/profile/person', this.person)
+    //       .then((res) => {
+    //         alert(`You changed the gender to ${res.data.gender}`);
+    //       }).catch((err) => {
+    //         alert(err);
+    //       });
+    //   }, 2000);
+    // },
+    updatePhoto(event) {
+      const file = event.target.files[0];
+      const formData = new FormData();
+      formData.set('photo', file);
+      api.put('/api/profile/photo', formData)
+        .then((res) => {
+          alert(`You changed the photo to ${res.data.photo}`);
+          this.profile.photo = res.data.photo;
         });
     },
-    methods:{
-        updateName(){
-            setTimeout(()=>{
-                api.put('/api/profile/person', this.person )
-                .then((res)=>{
-                    alert(`You changed the name to ${res.data.name}`)
-                }).catch((err)=>{
-                    alert(err);
-                });
-            },2000)
-        },
-        updateSurname(){
-            setTimeout(()=>{
-                api.put('/api/profile/person',this.person)
-                .then((res)=>{
-                    alert(`You changed the surname to ${res.data.surname}`)
-                }).catch((err)=>{
-                    alert(err)
-                });
-            },2000)
-        },
-        updateCompany(){
-            setTimeout(()=>{
-                api.put('/api/profile/person',this.person)
-                .then((res)=>{
-                    alert(`You changed the company to ${res.data.company}`)
-                }).catch((err)=>{
-                    alert(err)
-                });
-            },2000)
-        },
-        updateCountry(){
-            setTimeout(()=>{
-                api.put('/api/profile/person',this.person)
-                .then((res)=>{
-                    alert(`You changed the country to ${res.data.country}`)
-                }).catch((err)=>{
-                    alert(err)
-                });
-            },2000)
-        },
-        updateMobile(){
-            setTimeout(()=>{
-                const mobile = `${this.prefix}${this.person.mobile}`
-                api.put('/api/profile/person',this.person)
-                .then(()=>{
-                    alert(`You changed the phone to ${mobile}`)
-                }).catch((err)=>{
-                    alert(err)
-                });
-            },2000)
-        },
-        updateGender(){
-            setTimeout(()=>{
-                api.put('/api/profile/person', this.person)
-                .then((res)=>{
-                    alert(`You changed the gender to ${res.data.gender}`)
-                }).catch((err)=>{
-                    alert(err)
-                });
-            },2000)
-        },
-        updatePhoto(event){
-            let file = event.target.files[0]
-            const formData = new FormData();
-            formData.set('photo', file);
-            api.put('/api/profile/photo',formData)
-            .then((res)=>{
-                alert(`You changed the photo to ${res.data.photo}`);
-                this.profile.photo=res.data.photo;
-            })
-        }
-    }
-}
+  },
+};
 </script>
 
 <style lang="sass" scoped>
@@ -211,7 +211,7 @@ export default{
         border-radius: 50%
     @include respond_tablet
         order: 2
-        
+
 .profile__link
     margin-left: 5%
     margin-top: 10px

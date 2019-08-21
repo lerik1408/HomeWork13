@@ -5,18 +5,18 @@
 </template>
 
 <script>
-import api from './shared/services/api.axios'
+import api from './shared/services/api.axios';
 
 export default {
   name: 'app',
   components: {
 
   },
-  beforeCreate:function(){
+  beforeCreate() {
     // api.init('https://api-my-fixer.herokuapp.com')
-    api.init('http://localhost:3000')
-  }
-}
+    api.init('http://localhost:3000');
+  },
+};
 
 </script>
 
