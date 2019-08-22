@@ -52,12 +52,8 @@ export default {
           const user = JSON.parse(localStorage.getItem('recovery'));
           user.password = this.password;
           api.put('/api/auth/password', user).then(() => {
-            api.post('/api/auth/sign-up', user).then(() => {
-              localStorage.removeItem('recovery');
-              this.$router.push('/password-recovery-3');
-            }).catch((err) => {
-              alert(err);
-            });
+            localStorage.removeItem('recovery');
+            this.$router.push('/password-recovery-3');
           }).catch((err) => {
             alert(err);
           });
