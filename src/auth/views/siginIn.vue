@@ -99,7 +99,7 @@ export default {
     saveUser(user) {
       localStorage.setItem('user', JSON.stringify(user));
       api.setHeader();
-      this.$router.push('/profile/personal');
+      this.$router.push('/profile');
     },
   },
 };

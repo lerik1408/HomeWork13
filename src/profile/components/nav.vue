@@ -1,10 +1,10 @@
 <template>
   <section class="nav">
     <div class="nav__item" v-bind:class="{ 'nav__item--active': active.person }">
-      <router-link to="/profile/personal">PERSONAL INFORMATION</router-link>
+      <p @click="tab($event)" ref="first">PERSONAL INFORMATION</p>
     </div>
     <div class="nav__item" v-bind:class="{ 'nav__item--active': active.account }">
-      <router-link to="/profile/account">ACCOUNT INFORMATION</router-link>
+      <p  @click="tab($event)" ref="second">ACCOUNT INFORMATION</p>
     </div>
   </section>
 </template>
@@ -13,6 +13,11 @@
 export default {
   props: {
     active: Object,
+  },
+  methods: {
+    tab(event) {
+      this.$emit('tab', event, this.$refs.first, this.$refs.second);
+    },
   },
 };
 </script>
@@ -41,12 +46,13 @@ export default {
         width: 45%
     @include respind_smartphone
         font-size: 14px
-.nav__item a
+.nav__item p
     color: $grayTextNoActive
     font-size: 16px
     font-style: bold
     text-decoration: none
-.nav__item--active a
+    cursor: pointer
+.nav__item--active p
     color: $navyBlue
     font-weight: bold
     font-size: 16px

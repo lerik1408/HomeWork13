@@ -14,7 +14,7 @@
         <div class="form__wrap">
             <label for="" class="form__label">Category</label>
             <select v-model="itemSearch.category" class="form__select" name="category" @change="foundItemforSearch()" formmethod="get">
-                <option value="All">All</option>
+                <option value=0 selected >All</option>
                 <option
                     v-for="category in categorys"
                     :key="category._id"
@@ -26,7 +26,7 @@
         <div class="form__wrap">
             <label for="" class="form__label">Service</label>
             <select class="form__select" name="ser">
-                <option value="0">All</option>
+                <option>All</option>
                 <option>3 Service</option>
                 <option>Пункт 2</option>
             </select>
@@ -35,7 +35,16 @@
             <label class="form__label">Period</label>
             <input class="form__input" id="data">
         </div>
-        <button @click="submit" class="form__button" type="submit" >Search</button>
+        <div class="form__wrap">
+          <label class="form__label">Sorting</label>
+          <select @change="foundItemforSearch()" class="form__select" v-model="itemSearch.sort">
+              <option value="0" selected >All</option>
+              <option value="1">From cheap to expensive</option>
+              <option value="2">From expensive to cheap</option>
+              <option value="3">Ascending rating</option>
+              <option value="4">Descending rating</option>
+          </select>
+        </div>
     </form>
 </template>
 
@@ -47,14 +56,13 @@ export default {
     return {
       itemSearch: {
         name: '',
-        category: '',
+        category: '0',
+        sort: '0',
       },
       categorys: [],
     };
   },
   mounted() {
-    // api.init('https://api-my-fixer.herokuapp.com');
-    // api.init('http://localhost:3000');
     api.get('/api/search/category').then((res) => {
       this.categorys = res.data.categorys;
     });
@@ -63,16 +71,7 @@ export default {
     searchName() {
     },
     foundItemforSearch() {
-      // console.log(this.itemSearch)
       this.$emit('category', this.itemSearch);
-    },
-    submit() {
-      alert('dw');
-      if (this.$refs.nameInput.value) {
-        alert('dw');
-      } else {
-        this.$refs.nameInput.setAttribute('disable');
-      }
     },
   },
 };

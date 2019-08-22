@@ -6,13 +6,7 @@
       <section class="main__wrap">
         <form-component @category="search"></form-component>
         <div class="content">
-          <div class="control">
-            <p class="control-text">SHOW MAP</p>
-              <input type="radio" name="control" id="price" class="control__checkbox" @change="price($event)"/>
-              <label for="price" class="control__label">by price</label>
-              <input type="radio" name="control" id="rating" class="control__checkbox" @change="rating($event)"/>
-              <label for="rating" class="control__label">by rating</label>
-          </div>
+          <p class="content__tab">show map</p>
           <div class="people">
             <people-component
               v-for="people in peoples"
@@ -43,6 +37,15 @@ export default {
       active: {
         search: true,
       },
+      query: {
+        name: '',
+        category: '0',
+        sort: '0',
+      },
+      filterItem: {
+        price: false,
+        rating: false,
+      },
       breadcrumbs: [
         { id: 1, text: 'Home' },
         { id: 2, text: 'Search' },
@@ -57,17 +60,19 @@ export default {
     peopleComponent,
   },
   mounted() {
-    // api.init('https://api-my-fixer.herokuapp.com');
-    // api.init('http://localhost:3000');
-    api.post('/api/search/people', { category: '', name: '' }).then((res) => {
+    api.post('/api/search/people', this.query).then((res) => {
       this.peoples = res.data.allPeople;
     });
   },
   methods: {
     search(params) {
-      api.post('/api/search/people', params).then((res) => {
+      this.query = params;
+      api.post('/api/search/people', this.query).then((res) => {
         this.peoples = res.data.allPeople;
       });
+    },
+    filter(params) {
+      this.filterItem = params;
     },
   },
 };
@@ -106,50 +111,17 @@ main
     border-radius: 4px
     background: rgba(19, 66, 189, 0.1)
 .content
-    margin-top: 40px
-    margin-left: 41px
-    width: 100%
-.control-text
-    font-weight: 700
-    font-size: 12px
-    color: $navyBlue
-    text-transform: uppercase
-    line-height: 14px
-.control
-    display: flex
-    width: 100%
-.control-text
-    margin-right: auto
-.control__label
-    font-family: $Roboto
-    font-style: normal
-    font-weight: 300
-    font-size: 14px
-    margin-left: 20px
-    &:last-child
-        margin-right: 10%
-.control__checkbox
-    display: none
-    & + label
-        padding-left: 15px
-        padding-top: 5px
-        position: relative
-        &::before
-            position: absolute
-            left: -10px
-            top: 2px
-            content: ""
-            display: block
-            border: 1px solid #F0F1F3
-            width: 18px
-            height: 18px
-            border-radius: 50%
-
-    &:checked + label::before
-        background: radial-gradient(circle closest-side,$lightGreen  5px, #fff 6px)
+  margin-top: 40px
+  margin-left: 41px
+  width: 100%
+.content__tab
+  text-transform: capitalize
+  font-family: $Roboto
+  color: $navyBlue
+  font-weight: 600
+  cursor: pointer
 .people
     width: 95%
-    // background-color: red
     height: 418px
     margin-top: 31px
     display: flex

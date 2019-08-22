@@ -1,6 +1,9 @@
+/* eslint-disable import/no-unresolved */
 import VueRouter from 'vue-router';
 
+// eslint-disable-next-line import/no-unresolved
 import siginIn1 from './auth/views/siginIn';
+// eslint-disable-next-line import/no-unresolvedx`
 import passwordRecovery1 from './auth/views/passwordRecovery/1';
 import passwordRecovery2 from './auth/views/passwordRecovery/2';
 import passwordRecovery3 from './auth/views/passwordRecovery/checkMail';
@@ -8,10 +11,12 @@ import siginUp1 from './auth/views/signUp/1';
 import siginUp2 from './auth/views/signUp/2';
 import siginUp3 from './auth/views/signUp/checkMail';
 import messenger from './messenger/views';
-import personal from './profile/views/personal';
-import account from './profile/views/account';
+import profile from './profile/views/profile';
+// import personal from './profile/views/personal';
+// import account from './profile/views/account';
 import search from './search/views/results';
-import profile from './search/views/profile';
+import profileSearch from './search/views/profile';
+// import profile from './profile/views/profile';
 
 const routes = [
   { path: '/sign-in', component: siginIn1 },
@@ -22,7 +27,7 @@ const routes = [
   { path: '/sign-up-2', component: siginUp2 },
   { path: '/sign-up-3', component: siginUp3 },
   { path: '/search', component: search },
-  { path: '/search/profile/:id', component: profile },
+  { path: '/search/profile/:id', component: profileSearch },
   // { path: '/search/:id', component: search},
   {
     path: '/messenger',
@@ -38,21 +43,8 @@ const routes = [
     },
   },
   {
-    path: '/profile/personal',
-    component: personal,
-    beforeEnter(to, from, next) {
-      if (localStorage.getItem('user')) {
-        next();
-      } else {
-        next({
-          path: '/sign-in',
-        });
-      }
-    },
-  },
-  {
-    path: '/profile/account',
-    component: account,
+    path: '/profile',
+    component: profile,
     beforeEnter(to, from, next) {
       if (localStorage.getItem('user')) {
         next();

@@ -4,12 +4,12 @@
         <img src="../assets/img/logo.png" alt="logo" srcset="">
     </figure>
     <nav class="menu">
-        <router-link to="/search" class="menu__item" v-bind:class="{ 'menu__item--active': active.search }">
+        <router-link to="/search/" class="menu__item" v-bind:class="{ 'menu__item--active': active.search }">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5595 15.4322L13.6491 11.5219C13.6283 11.5011 13.6039 11.4866 13.5822 11.4672C14.3516 10.3001 14.8007 8.90292 14.8007 7.40043C14.8007 3.31327 11.4874 0 7.40036 0C3.31327 0 0 3.31327 0 7.40036C0 11.4874 3.31319 14.8007 7.40028 14.8007C8.90285 14.8007 10.2999 14.3516 11.4671 13.5822C11.4864 13.6038 11.5009 13.6282 11.5217 13.649L15.4322 17.5595C16.0196 18.1468 16.972 18.1468 17.5595 17.5595C18.1468 16.972 18.1468 16.0197 17.5595 15.4322ZM7.40036 12.2352C4.73004 12.2352 2.5654 10.0706 2.5654 7.40036C2.5654 4.73004 4.73011 2.5654 7.40036 2.5654C10.0705 2.5654 12.2352 4.73011 12.2352 7.40036C12.2352 10.0706 10.0705 12.2352 7.40036 12.2352Z" fill="#8089A6"/>
                 </svg>
         </router-link>
-        <router-link to="/profile/personal" class="menu__item" v-bind:class="{ 'menu__item--active': active.info }">
+        <router-link to="/profile" class="menu__item" v-bind:class="{ 'menu__item--active': active.info }">
 
             <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.00024 9.59594C11.229 9.59594 13.0361 7.4478 13.0361 4.79795C13.0361 1.12334 11.2291 0 9.00024 0C6.77125 0 4.96442 1.12334 4.96442 4.79795C4.96446 7.4478 6.7713 9.59594 9.00024 9.59594Z" fill="white"/>
