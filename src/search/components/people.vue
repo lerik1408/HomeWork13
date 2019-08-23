@@ -73,7 +73,7 @@ export default {
     @include respind_smartphone
         margin-left: 0
 .people__content
-    width: 100%
+    width: 50%
     margin-left: 30px
 .people__headline
     display: flex

@@ -8,7 +8,7 @@
     </section>
     <section class="header__user user" @click="showMenu">
         <p class="user__item">
-            Faruh Bernandez
+            {{fullname}}
         </p>
         <div class="user__item">
             <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg" class="svg" :class="{'svg--active': menuFlag}">
@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       menuFlag: false,
+      fullname: ''
     };
   },
   props: {
@@ -45,6 +46,10 @@ export default {
     s() {
       return this.$store.state.flag;
     },
+  },
+  mounted(){
+    const body = JSON.parse(localStorage.getItem('user')).user
+    this.fullname = `${body.name} ${body.surname}`
   },
   methods: {
     update() {

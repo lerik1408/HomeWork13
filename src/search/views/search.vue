@@ -15,6 +15,7 @@
             ></people-component>
           </div>
           <div class="pagination">
+            <router-link v-for="page in pages" :to="{name: 'pagination',params: {id: page}}" :key="page">{{page}}</router-link>
           </div>
         </div>
       </section>
@@ -34,6 +35,7 @@ export default {
   data() {
     return {
       peoples: undefined,
+      pages: 1,
       active: {
         search: true,
       },
@@ -41,10 +43,6 @@ export default {
         name: '',
         category: '0',
         sort: '0',
-      },
-      filterItem: {
-        price: false,
-        rating: false,
       },
       breadcrumbs: [
         { id: 1, text: 'Home' },
@@ -60,19 +58,24 @@ export default {
     peopleComponent,
   },
   mounted() {
-    api.post('/api/search/people', this.query).then((res) => {
+    api.post(`/api/search/people/`, this.query).then((res) => {
       this.peoples = res.data.allPeople;
+      this.pages = Math.ceil(res.data.pages/this.peoples.length);
     });
   },
+  // beforeUpdate(){
+  //   api.post(`/api/search/people/${this.$route.params.id}`, this.query).then((res) => {
+  //     console.log('aaaa')
+  //     this.peoples = res.data.allPeople;
+  //     this.pages = Math.ceil(res.data.pages/this.peoples.length);
+  //   });
+  // },
   methods: {
     search(params) {
       this.query = params;
       api.post('/api/search/people', this.query).then((res) => {
         this.peoples = res.data.allPeople;
       });
-    },
-    filter(params) {
-      this.filterItem = params;
     },
   },
 };
@@ -100,6 +103,7 @@ main
         width: 100%
     @include respond_tablet
         width: 97%
+        height: 100%
         flex-direction: column
 .people
   &::-webkit-scrollbar
@@ -114,6 +118,8 @@ main
   margin-top: 40px
   margin-left: 41px
   width: 100%
+  @include respond_tablet
+    margin: 0
 .content__tab
   text-transform: capitalize
   font-family: $Roboto
@@ -128,5 +134,15 @@ main
     flex-wrap: wrap
     overflow: auto
     @include respond_tablet
-        width: 100%
+      width: 100%
+.pagination
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-top: 15px
+.pagination>a
+  margin-right: 10px
+  font-size: 20px
+  color: $navyBlue
+  text-decoration: none
 </style>
