@@ -49,8 +49,11 @@
             </select>
         </div>
         <div class="form__wrap">
-            <label for="" class="form__label">Company</label>
-            <input @change="updateData" type="text" id="company" class="form__input" v-model="person.company">
+            <label for="" class="form__label">Stack</label>
+            <select class="form__select form__select--country">
+              <option>None</option>
+              <option v-for="item in category" :key="item.name" :selected="person.stack[0].name==item.name">{{item.name}}</option>
+            </select>
         </div>
     </form>
 </section>
@@ -68,12 +71,16 @@ export default {
     return {
       person: {},
       prefix: '',
+      category: [],
     };
   },
   mounted() {
     api.setHeader();
     api.get('/api/profile/person').then((res) => {
       this.person = res.data.user;
+    });
+    api.get('/api/search/category').then((res) => {
+      this.category = res.data.categorys
     });
   },
   methods: {

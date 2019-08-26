@@ -59,7 +59,7 @@ export default {
   mounted() {
     api.get(`/api/search/profile${this.$route.params.id}`).then((res) => {
       this.profile = res.data.profile;
-    })
+    });
   },
 
   //   methods:{

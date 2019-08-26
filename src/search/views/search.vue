@@ -5,18 +5,21 @@
     <main class="main">
       <section class="main__wrap">
         <form-component @category="search"></form-component>
-        <div class="content">
-          <p class="content__tab">show map</p>
-          <div class="people">
-            <people-component
-              v-for="people in peoples"
-              v-bind:people="people"
-              v-bind:key="people._id"
-            ></people-component>
-          </div>
-          <div class="pagination">
-            <router-link v-for="page in pages" :to="{name: 'pagination',params: {id: page}}" :key="page">{{page}}</router-link>
-          </div>
+
+          <div class="content">
+            <p @click="switchTab" class="content__tab">{{textTab}}</p>
+            <div v-if="!active.map" class="people">
+              <people-component
+                v-for="people in peoples"
+                v-bind:people="people"
+                v-bind:key="people._id"
+              ></people-component>
+            </div>
+            <map-component v-if="active.map"></map-component>
+            <div class="pagination" v-if="!active.map">
+              <router-link v-for="page in pages" :to="{name: 'pagination',params: {id: page}}" :key="page">{{page}}</router-link>
+            </div>
+
         </div>
       </section>
     </main>
@@ -28,16 +31,18 @@ import asideComponent from '../../components/aside';
 import headerComponent from '../../components/header';
 import formComponent from '../components/form';
 import peopleComponent from '../components/people';
+import mapComponent from '../components/map';
 import api from '../../shared/services/api.axios';
 
 export default {
-  // name: "personal",
+  name: 'search',
   data() {
     return {
       peoples: undefined,
       pages: 1,
       active: {
         search: true,
+        map: false,
       },
       query: {
         name: '',
@@ -56,11 +61,20 @@ export default {
     headerComponent,
     formComponent,
     peopleComponent,
+    mapComponent,
+  },
+  computed: {
+    textTab() {
+      if (!this.active.map) {
+        return 'Show map';
+      }
+      return 'Show result';
+    },
   },
   mounted() {
-    api.post(`/api/search/people/`, this.query).then((res) => {
+    api.post('/api/search/people/', this.query).then((res) => {
       this.peoples = res.data.allPeople;
-      this.pages = Math.ceil(res.data.pages/this.peoples.length);
+      this.pages = Math.ceil(res.data.pages / this.peoples.length);
     });
   },
   // beforeUpdate(){
@@ -76,6 +90,9 @@ export default {
       api.post('/api/search/people', this.query).then((res) => {
         this.peoples = res.data.allPeople;
       });
+    },
+    switchTab() {
+      this.active.map = !this.active.map;
     },
   },
 };

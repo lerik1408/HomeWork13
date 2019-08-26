@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       menuFlag: false,
-      fullname: ''
+      fullname: '',
     };
   },
   props: {
@@ -47,9 +47,9 @@ export default {
       return this.$store.state.flag;
     },
   },
-  mounted(){
-    const body = JSON.parse(localStorage.getItem('user')).user
-    this.fullname = `${body.name} ${body.surname}`
+  mounted() {
+    const body = JSON.parse(localStorage.getItem('user')).user;
+    this.fullname = `${body.name} ${body.surname}`;
   },
   methods: {
     update() {
