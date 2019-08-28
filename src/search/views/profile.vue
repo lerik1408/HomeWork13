@@ -46,9 +46,9 @@ export default {
       },
       profile: {},
       breadcrumbs: [
-        { id: 1, text: 'Home' },
-        { id: 2, text: 'Search' },
-        { id: 3, text: 'Results' },
+        { id: 1, text: 'Home', link: '/index'},
+        { id: 2, text: 'Search', link: '/search'},
+        { id: 3, text: 'Results', link: ''},
       ],
     };
   },

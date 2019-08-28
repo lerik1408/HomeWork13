@@ -16,10 +16,6 @@
               ></people-component>
             </div>
             <map-component v-if="active.map"></map-component>
-            <div class="pagination" v-if="!active.map">
-              <router-link v-for="page in pages" :to="{name: 'pagination',params: {id: page}}" :key="page">{{page}}</router-link>
-            </div>
-
         </div>
       </section>
     </main>
@@ -39,7 +35,6 @@ export default {
   data() {
     return {
       peoples: undefined,
-      pages: 1,
       active: {
         search: true,
         map: false,
@@ -50,12 +45,20 @@ export default {
         sort: '0',
       },
       breadcrumbs: [
-        { id: 1, text: 'Home' },
-        { id: 2, text: 'Search' },
-        { id: 3, text: 'Results' },
+        { id: 1, text: 'Home', link: '/index' },
+        { id: 2, text: 'Search', link: '/search' },
       ],
     };
   },
+  // beforeRouteUpdate (to, from, next) {
+  //   next()
+  //   //
+  //   api.post(`/api/search/people/${this.$route.params.id}`, this.query).then((res) => {
+  //     console.log('aaaa')
+  //     this.peoples = res.data.allPeople;
+  //   });
+  //   console.log(this.$route.params.id)
+  // },
   components: {
     asideComponent,
     headerComponent,
@@ -72,24 +75,23 @@ export default {
     },
   },
   mounted() {
-    api.post('/api/search/people/', this.query).then((res) => {
+    api.get(`/api/search/people?name=${this.query.name}&category=${this.query.category}&sort=${this.query.sort}`).then((res) => {
       this.peoples = res.data.allPeople;
-      this.pages = Math.ceil(res.data.pages / this.peoples.length);
     });
   },
-  // beforeUpdate(){
-  //   api.post(`/api/search/people/${this.$route.params.id}`, this.query).then((res) => {
-  //     console.log('aaaa')
-  //     this.peoples = res.data.allPeople;
-  //     this.pages = Math.ceil(res.data.pages/this.peoples.length);
-  //   });
-  // },
   methods: {
     search(params) {
+      // this.query = params;
+      // api.post('/api/search/people', this.query).then((res) => {
+      //   this.peoples = res.data.allPeople;
+      //   this.pages = Math.ceil(res.data.pages / this.peoples.length);
+      // });
       this.query = params;
-      api.post('/api/search/people', this.query).then((res) => {
+      this.$router.push( {path: '', query:  this.query } );
+      api.get(`/api/search/people?name=${this.query.name}&category=${this.query.category}&sort=${this.query.sort}`).then((res)=>{
         this.peoples = res.data.allPeople;
-      });
+      })
+      
     },
     switchTab() {
       this.active.map = !this.active.map;

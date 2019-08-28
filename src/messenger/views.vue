@@ -75,8 +75,8 @@ export default {
         messenger: true,
       },
       breadcrumbs: [
-        { id: 1, text: 'Home' },
-        { id: 2, text: 'Network' },
+        { id: 1, text: 'Home', link: '/index' },
+        { id: 2, text: 'Network', link: '/messenger'},
       ],
       users: [
         {

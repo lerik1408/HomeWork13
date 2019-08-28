@@ -30,8 +30,8 @@ export default {
         account: false,
       },
       breadcrumbs: [
-        { id: 1, text: 'Home' },
-        { id: 2, text: 'My profile' },
+        { id: 1, text: 'Home', link: '/index'},
+        { id: 2, text: 'My profile', link: '/profile'},
       ],
     };
   },

@@ -3,8 +3,8 @@
     <div class="burger" @click="show">
         <span class="burger__line" :class="{'burger__line--active': s}"></span>
      </div>
-    <section @click="update" class="breadcrumbs">
-        <p class="breadcrumbs__item" v-for="item in breadcrumbs" v-bind:key="item.id">{{item.text}}</p>
+    <section class="breadcrumbs">
+        <router-link class="breadcrumbs__item" v-for="item in breadcrumbs" v-bind:key="item.id" :to="item.link">{{item.text}}</router-link>
     </section>
     <section class="header__user user" @click="showMenu">
         <p class="user__item">
@@ -52,11 +52,6 @@ export default {
     this.fullname = `${body.name} ${body.surname}`;
   },
   methods: {
-    update() {
-      this.$store.commit('increment', {
-        number: 10,
-      });
-    },
     show() {
       this.$store.commit('show');
     },
@@ -132,8 +127,10 @@ export default {
     display: none
 .breadcrumbs__item
   font-family: $Roboto
+  color: #000
   font-size: 14px
   position: relative
+  text-decoration: none
   padding-right: 30px
 .breadcrumbs__item::after
   position: absolute

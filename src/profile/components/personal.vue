@@ -50,9 +50,9 @@
         </div>
         <div class="form__wrap">
             <label for="" class="form__label">Stack</label>
-            <select class="form__select form__select--country">
-              <option>None</option>
-              <option v-for="item in category" :key="item.name" :selected="person.stack[0].name==item.name">{{item.name}}</option>
+            <select class="form__select form__select--country" @change="updateCategory($event)">
+              <option disabled>None</option>
+              <option v-for="item in category" :key="item.name" :value="item._id" :selected="person.stack[0].name==item.name">{{item.name}}</option>
             </select>
         </div>
     </form>
@@ -72,18 +72,26 @@ export default {
       person: {},
       prefix: '',
       category: [],
+      putCategory: '',
     };
   },
   mounted() {
     api.setHeader();
     api.get('/api/profile/person').then((res) => {
       this.person = res.data.user;
-    });
-    api.get('/api/search/category').then((res) => {
-      this.category = res.data.categorys
+      api.get('/api/search/category').then((res) => {
+        this.category = res.data.categorys
+      });
     });
   },
   methods: {
+    updateCategory (event){
+      api.put('/api/profile/category', {id :event.target.value}).then((res)=>{
+        alert('categories changed');
+      }).catch((err)=>{
+        alert(err);
+      });
+    },
     updateData(event) {
       const timer = setTimeout(() => {
         api.put('/api/profile/person', this.person)
