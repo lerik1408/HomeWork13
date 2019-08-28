@@ -80,15 +80,15 @@ export default {
     api.get('/api/profile/person').then((res) => {
       this.person = res.data.user;
       api.get('/api/search/category').then((res) => {
-        this.category = res.data.categorys
+        this.category = res.data.categorys;
       });
     });
   },
   methods: {
-    updateCategory (event){
-      api.put('/api/profile/category', {id :event.target.value}).then((res)=>{
+    updateCategory(event) {
+      api.put('/api/profile/category', { id: event.target.value }).then((res) => {
         alert('categories changed');
-      }).catch((err)=>{
+      }).catch((err) => {
         alert(err);
       });
     },

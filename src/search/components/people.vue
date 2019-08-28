@@ -30,7 +30,6 @@
 import componentRating from './rating';
 
 
-
 export default {
   props: {
     inp: String,

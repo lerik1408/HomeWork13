@@ -50,15 +50,6 @@ export default {
       ],
     };
   },
-  // beforeRouteUpdate (to, from, next) {
-  //   next()
-  //   //
-  //   api.post(`/api/search/people/${this.$route.params.id}`, this.query).then((res) => {
-  //     console.log('aaaa')
-  //     this.peoples = res.data.allPeople;
-  //   });
-  //   console.log(this.$route.params.id)
-  // },
   components: {
     asideComponent,
     headerComponent,
@@ -75,23 +66,26 @@ export default {
     },
   },
   mounted() {
-    api.get(`/api/search/people?name=${this.query.name}&category=${this.query.category}&sort=${this.query.sort}`).then((res) => {
+    console.log(this.$router.history.current.query)
+    const queryShared = this.$router.history.current.query
+    // Check void obj
+    if (Object.keys(queryShared).length !== 0) {
+      this.query.name = queryShared.name;
+      this.query.category = queryShared.category;
+      this.query.sort = queryShared.sort;
+    }
+    api.get(`/api/search/people?name=${this.query.name}&category=${this.query.category}&sort=${this.query.sort}&skip=${this.query.skip}`).then((res) => {
       this.peoples = res.data.allPeople;
     });
   },
   methods: {
     search(params) {
-      // this.query = params;
-      // api.post('/api/search/people', this.query).then((res) => {
-      //   this.peoples = res.data.allPeople;
-      //   this.pages = Math.ceil(res.data.pages / this.peoples.length);
-      // });
+      this.query.skip = 0;
       this.query = params;
-      this.$router.push( {path: '', query:  this.query } );
-      api.get(`/api/search/people?name=${this.query.name}&category=${this.query.category}&sort=${this.query.sort}`).then((res)=>{
+      this.$router.push({ path: '', query: this.query });
+      api.get(`/api/search/people?name=${this.query.name}&category=${this.query.category}&sort=${this.query.sort}&skip=${this.query.skip}`).then((res) => {
         this.peoples = res.data.allPeople;
-      })
-      
+      });
     },
     switchTab() {
       this.active.map = !this.active.map;

@@ -76,7 +76,7 @@ export default {
       },
       breadcrumbs: [
         { id: 1, text: 'Home', link: '/index' },
-        { id: 2, text: 'Network', link: '/messenger'},
+        { id: 2, text: 'Network', link: '/messenger' },
       ],
       users: [
         {
