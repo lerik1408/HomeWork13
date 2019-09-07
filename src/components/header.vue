@@ -4,7 +4,7 @@
         <span class="burger__line" :class="{'burger__line--active': s}"></span>
      </div>
     <section class="breadcrumbs">
-        <router-link class="breadcrumbs__item" v-for="item in breadcrumbs" v-bind:key="item.id" :to="item.link">{{item.text}}</router-link>
+        <router-link class="breadcrumbs__item" v-for="(item, i) in breadcrumbs" v-bind:key="i" :to="{ name: item }">{{item}}</router-link>
     </section>
     <section class="header__user user" @click="showMenu">
         <p class="user__item">
@@ -36,9 +36,9 @@ export default {
       fullname: '',
     };
   },
-  props: {
-    breadcrumbs: Array,
-  },
+  // props: {
+  //   breadcrumbs: Array,
+  // },
   computed: {
     count() {
       return this.$store.state.count;
@@ -46,6 +46,10 @@ export default {
     s() {
       return this.$store.state.flag;
     },
+    breadcrumbs(){
+      console.log();
+      return (['home'].concat(this.$route.path.split("/").filter(item => item!='')))
+    }
   },
   mounted() {
     const body = JSON.parse(localStorage.getItem('user')).user;

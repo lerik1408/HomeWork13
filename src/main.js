@@ -10,11 +10,19 @@ Vue.use(VueRouter);
 Vue.use(VeeValidate);
 Vue.config.productionTip = false;
 
+// Vue.use(VueGoogleMaps, {
+//   load: {
+//     key: 'AIzaSyBNSRoMIfBJuZnYuCui18cCjKtKc0K-2rQ',
+//     libraries: 'places',
+//   },
+// });
+
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyBNSRoMIfBJuZnYuCui18cCjKtKc0K-2rQ',
+    key: 'AIzaSyDWRD4bqbsSjCp8tW4I4eTnI-npCx1zq8k',
     libraries: 'places',
   },
+  // installComponents: true,
 });
 
 new Vue({

@@ -17,7 +17,7 @@ import profileSearch from './search/views/profile';
 // import profile from './profile/views/profile';
 
 const routes = [
-  { path: '/sign-in', component: siginIn1 },
+  { path: '/sign-in', name: 'home', component: siginIn1 },
   { path: '/password-recovery-1', component: passwordRecovery1 },
   { path: '/password-recovery-2', component: passwordRecovery2 },
   { path: '/password-recovery-3', component: passwordRecovery3 },
@@ -25,11 +25,12 @@ const routes = [
   { path: '/sign-up-2', component: siginUp2 },
   { path: '/sign-up-3', component: siginUp3 },
   { path: '/search/:id', name: 'pagination', component: search },
-  { path: '/search', component: search },
+  { path: '/search', name: 'search', component: search },
   { path: '/search/profile/:id', component: profileSearch },
   // { path: '/search/:id', component: search},
   {
     path: '/messenger',
+    name: 'messenger',
     component: messenger,
     beforeEnter(to, from, next) {
       if (localStorage.getItem('user')) {
@@ -43,6 +44,7 @@ const routes = [
   },
   {
     path: '/profile',
+    name: 'profile',
     component: profile,
     beforeEnter(to, from, next) {
       if (localStorage.getItem('user')) {
