@@ -7,7 +7,7 @@
     <main class="main">
     <div class="main__wrap">
       <form @submit.prevent="login" class="form">
-        <h3 class="form__headline">Sigin in</h3>
+        <h3 class="form__headline">Sign in</h3>
         <input  v-model="user.email"
                 v-validate="'required|email'"
                 name="email"
@@ -39,7 +39,7 @@
           {{ errors.first('password') }}
         </span>
         <router-link to="/password-recovery-1" class="form__link">Forgot password?</router-link>
-        <button type="submit" class="form__button">Sigin in</button>
+        <button type="submit" class="form__button">Sign in</button>
       </form>
     </div>
   </main>

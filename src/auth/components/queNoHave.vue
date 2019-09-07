@@ -3,8 +3,7 @@
     <!-- Cheat -->
     <div class="header__question">
         <p class="header__text">Do not have an account?</p>
-        <router-link to="sign-up-1" class="header__link">Sigin Up</router-link>
-        <!-- <a href="sign-up-1" class="header__link">Sigin Up</a> -->
+        <router-link to="sign-up-1" class="header__link">Sign Up</router-link>
     </div>
 </template>
 <script>

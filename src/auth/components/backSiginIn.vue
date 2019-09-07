@@ -3,7 +3,7 @@
         <p class="header__text">
             Back to
         </p>
-        <router-link to="sign-in" class="header__link">Sigin in</router-link>
+        <router-link to="sign-in" class="header__link">Sign in</router-link>
     </div>
 </template>
 <script>

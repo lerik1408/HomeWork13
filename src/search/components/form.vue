@@ -1,12 +1,8 @@
 <template>
     <form class="form" method="get">
-        <div class="form__wrap">
+        <!-- <div class="form__wrap">
             <label for="" class="form__label">Location</label>
-            <select class="form__select">
-                <option></option>
-                <option>Пункт 2</option>
-            </select>
-        </div>
+        </div> -->
         <div class="form__wrap">
             <label for="" class="form__label">Search</label>
             <input v-model='itemSearch.name' @change="foundItemforSearch()" class="form__input" placeholder="Enter name" name="name" ref="nameInput">
