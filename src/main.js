@@ -2,12 +2,15 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VeeValidate from 'vee-validate';
 import * as VueGoogleMaps from 'vue2-google-maps';
+import vuescroll from 'vue-scroll';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 
+
 Vue.use(VueRouter);
 Vue.use(VeeValidate);
+Vue.use(vuescroll);
 Vue.config.productionTip = false;
 
 // Vue.use(VueGoogleMaps, {

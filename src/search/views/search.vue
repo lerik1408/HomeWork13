@@ -8,7 +8,7 @@
 
           <div class="content">
             <p @click="switchTab" class="content__tab">{{textTab}}</p>
-            <div v-if="!active.map" class="people">
+            <div v-if="!active.map" class="people" v-scroll="onScroll">
               <people-component
                 v-for="people in peoples"
                 v-bind:people="people"
@@ -43,6 +43,7 @@ export default {
         name: '',
         category: '0',
         sort: '0',
+        skip: 0,
       },
       breadcrumbs: [
         { id: 1, text: 'Home', link: '/index' },
@@ -79,6 +80,19 @@ export default {
     });
   },
   methods: {
+    onScroll(e, param){
+      console.log(param);
+      console.log(e);
+      // console.log(e.target.scrollHeight-param.scrollTop===418)
+      if(e.target.scrollHeight-param.scrollTop===418){
+        console.log('end')
+        this.query.skip+=1
+        api.get(`/api/search/people?name=${this.query.name}&category=${this.query.category}&sort=${this.query.sort}&skip=${this.query.skip}`).then((res) => {
+          console.log(res)
+        this.peoples = res.data.allPeople;
+      });
+      }
+    },
     search(params) {
       this.query.skip = 0;
       this.query = params;
