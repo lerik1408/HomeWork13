@@ -4,7 +4,7 @@
     <header-component v-bind:breadcrumbs="breadcrumbs"></header-component>
     <main class="main">
       <section class="main__wrap">
-        <form-component @category="search"></form-component>
+        <form-component @category="search" @loc="location"></form-component>
 
           <div class="content">
             <p @click="switchTab" class="content__tab">{{textTab}}</p>
@@ -15,7 +15,7 @@
                 v-bind:key="people._id"
               ></people-component>
             </div>
-            <map-component v-if="active.map"></map-component>
+            <map-component v-if="active.map" v-bind:people="people"></map-component>
         </div>
       </section>
     </main>
@@ -104,6 +104,18 @@ export default {
     switchTab() {
       this.active.map = !this.active.map;
     },
+    location(e) {
+      if(e.target.checked){
+         api.get('/api/search/location').then((res)=>{
+           console.log(res.data)
+           this.peoples = res.data
+         })
+      }else{
+      api.get(`/api/search/people?name=${this.query.name}&category=${this.query.category}&sort=${this.query.sort}&skip=${this.query.skip}`).then((res) => {
+      this.peoples = res.data.allPeople;
+    });
+      }
+    }
   },
 };
 </script>

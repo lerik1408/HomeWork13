@@ -1,8 +1,5 @@
 <template>
     <form class="form" method="get">
-        <!-- <div class="form__wrap">
-            <label for="" class="form__label">Location</label>
-        </div> -->
         <div class="form__wrap">
             <label for="" class="form__label">Search</label>
             <input v-model='itemSearch.name' @change="foundItemforSearch()" class="form__input" placeholder="Enter name" name="name" ref="nameInput">
@@ -41,6 +38,10 @@
               <option value="4">Descending rating</option>
           </select>
         </div>
+        <div class="form__wrap">
+            <label for="" class="form__label">Location</label>
+            <input type="checkbox" @change="loc($event)">
+        </div>
     </form>
 </template>
 
@@ -64,6 +65,9 @@ export default {
     });
   },
   methods: {
+    loc(e){
+      this.$emit('loc', e);
+    },
     searchName() {
     },
     foundItemforSearch() {
@@ -76,6 +80,8 @@ export default {
 <style lang="sass" scoped>
 @import '../../shared/style/variables.sass'
 @import '../../shared/style/respond.sass'
+.click
+  
 .form
     display: flex
     width: 29%
