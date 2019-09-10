@@ -1,6 +1,6 @@
 module.exports = {
   // runtimeCompiler: true,
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/home-work13/'
+    ? '/HomeWork13/'
     : '/',
 };

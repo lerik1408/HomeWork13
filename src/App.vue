@@ -15,8 +15,8 @@ export default {
 
   },
   beforeCreate() {
-    // api.init('https://api-my-fixer.herokuapp.com')
-    api.init('http://localhost:3000');
+    api.init('https://api-my-fixer.herokuapp.com')
+    // api.init('http://localhost:3000');
   },
 };
 

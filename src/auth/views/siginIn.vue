@@ -40,6 +40,7 @@
         </span>
         <router-link to="/password-recovery-1" class="form__link">Forgot password?</router-link>
         <button type="submit" class="form__button">Sign in</button>
+        <button class="form__button google"> <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.metadata.readonly&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost/api/auth/google&response_type=code&client_id=901777296422-ih9c5el5rsovta8dq0fsl12jag52jmls.apps.googleusercontent.com">Google</a></button>
       </form>
     </div>
   </main>
@@ -185,6 +186,8 @@ export default {
   margin-top: 14px
   @include respond_tablet
     align-self: center
+.google
+  background: tomato
 .message
   display: none
   margin-bottom: 10px
